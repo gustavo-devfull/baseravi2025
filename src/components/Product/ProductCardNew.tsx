@@ -236,7 +236,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
             </div>
           </div>
 
-          {/* Botão Exibir Todos os Campos */}
+          {/* Botão Ver mais */}
           <div style={{ marginTop: '1rem' }}>
             <button
               onClick={() => setShowDetailsModal(true)}
@@ -254,7 +254,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
               }}
             >
               <Eye style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
-              Exibir Todos os Campos
+              Ver mais
             </button>
           </div>
         </div>

@@ -130,9 +130,16 @@ export const Dashboard: React.FC = () => {
   };
 
   const handleImportProducts = (products: ProductFormData[]) => {
+    console.log('Dashboard - Produtos recebidos:', products.length);
+    console.log('Dashboard - Primeiro produto:', products[0]);
     setImportedProducts(products);
     setShowImportModal(false);
-    setShowBulkEditModal(true);
+    
+    // Pequeno delay para garantir que o estado seja atualizado
+    setTimeout(() => {
+      console.log('Dashboard - Abrindo modal de edição com produtos:', products.length);
+      setShowBulkEditModal(true);
+    }, 100);
   };
 
   const handleBulkSave = async (products: ProductFormData[]) => {
@@ -152,6 +159,13 @@ export const Dashboard: React.FC = () => {
       throw error;
     }
   };
+
+  // Debug - remover depois
+  console.log('Dashboard - Estado atual:', {
+    showBulkEditModal,
+    importedProductsLength: importedProducts.length,
+    importedProducts: importedProducts
+  });
 
   return (
     <>

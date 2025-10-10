@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Save, Package, Edit3 } from 'lucide-react';
 import type { ProductFormData } from '../../types/Product';
 
@@ -17,6 +17,18 @@ export const BulkEditModal: React.FC<BulkEditModalProps> = ({
 }) => {
   const [editedProducts, setEditedProducts] = useState<ProductFormData[]>(products);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Atualizar produtos quando as props mudarem
+  useEffect(() => {
+    console.log('BulkEditModal - useEffect - Produtos recebidos:', products.length);
+    console.log('BulkEditModal - useEffect - isOpen:', isOpen);
+    setEditedProducts(products);
+  }, [products, isOpen]);
+
+  // Log para debug
+  console.log('BulkEditModal - Produtos recebidos:', products.length);
+  console.log('BulkEditModal - Primeiro produto:', products[0]);
+  console.log('BulkEditModal - isOpen:', isOpen);
 
   const handleProductChange = (index: number, field: keyof ProductFormData, value: string | number) => {
     setEditedProducts(prev => prev.map((product, i) => 

@@ -45,40 +45,87 @@ export const ImportModal: React.FC<ImportModalProps> = ({
 
         const headers = jsonData[0] as string[];
         const rows = jsonData.slice(1) as any[][];
+        
+        console.log('Cabeçalhos encontrados:', headers);
+        console.log('Número de linhas:', rows.length);
 
         // Mapear cabeçalhos para campos do produto
         const fieldMapping: Record<string, keyof ProductFormData> = {
-          'linhaCotacoes': 'linhaCotacoes',
+          'linhacotacoes': 'linhaCotacoes',
+          'linha_cotacoes': 'linhaCotacoes',
+          'linha cotacoes': 'linhaCotacoes',
           'referencia': 'referencia',
+          'ref': 'referencia',
           'fabrica': 'fabrica',
-          'itemNo': 'itemNo',
+          'fabricante': 'fabrica',
+          'itemno': 'itemNo',
+          'item_no': 'itemNo',
+          'item no': 'itemNo',
           'description': 'description',
+          'descricao': 'description',
           'name': 'name',
+          'nome': 'name',
           'remark': 'remark',
           'obs': 'obs',
+          'observacoes': 'obs',
           'moq': 'moq',
-          'unitCtn': 'unitCtn',
-          'unitPriceRmb': 'unitPriceRmb',
+          'unitctn': 'unitCtn',
+          'unit_ctn': 'unitCtn',
+          'unit ctn': 'unitCtn',
+          'unitpricermb': 'unitPriceRmb',
+          'unit_price_rmb': 'unitPriceRmb',
+          'unit price rmb': 'unitPriceRmb',
+          'preco': 'unitPriceRmb',
+          'preço': 'unitPriceRmb',
+          'price': 'unitPriceRmb',
           'unit': 'unit',
+          'unidade': 'unit',
           'l': 'l',
+          'comprimento': 'l',
+          'length': 'l',
           'w': 'w',
+          'largura': 'w',
+          'width': 'w',
           'h': 'h',
+          'altura': 'h',
+          'height': 'h',
           'cbm': 'cbm',
           'gw': 'gw',
+          'peso_bruto': 'gw',
+          'peso bruto': 'gw',
           'nw': 'nw',
-          'pesoUnitario': 'pesoUnitario',
+          'peso_liquido': 'nw',
+          'peso liquido': 'nw',
+          'pesounitario': 'pesoUnitario',
+          'peso_unitario': 'pesoUnitario',
+          'peso unitario': 'pesoUnitario',
           'marca': 'marca',
-          'codRavi': 'codRavi',
+          'brand': 'marca',
+          'codravi': 'codRavi',
+          'cod_ravi': 'codRavi',
+          'cod ravi': 'codRavi',
           'ean': 'ean',
           'dun': 'dun',
-          'nomeInvoiceEn': 'nomeInvoiceEn',
-          'nomeDiNb': 'nomeDiNb',
-          'nomeRaviProfit': 'nomeRaviProfit',
-          'qtMinVenda': 'qtMinVenda',
+          'nomeinvoiceen': 'nomeInvoiceEn',
+          'nome_invoice_en': 'nomeInvoiceEn',
+          'nome invoice en': 'nomeInvoiceEn',
+          'nomedinb': 'nomeDiNb',
+          'nome_di_nb': 'nomeDiNb',
+          'nome di nb': 'nomeDiNb',
+          'nomeraviprofit': 'nomeRaviProfit',
+          'nome_ravi_profit': 'nomeRaviProfit',
+          'nome ravi profit': 'nomeRaviProfit',
+          'qtminvenda': 'qtMinVenda',
+          'qt_min_venda': 'qtMinVenda',
+          'qt min venda': 'qtMinVenda',
           'ncm': 'ncm',
           'cest': 'cest',
-          'valorInvoiceUsd': 'valorInvoiceUsd',
-          'obsPedido': 'obsPedido'
+          'valorinvoiceusd': 'valorInvoiceUsd',
+          'valor_invoice_usd': 'valorInvoiceUsd',
+          'valor invoice usd': 'valorInvoiceUsd',
+          'obspedido': 'obsPedido',
+          'obs_pedido': 'obsPedido',
+          'obs pedido': 'obsPedido'
         };
 
         const products: ImportedProduct[] = [];
@@ -135,12 +182,21 @@ export const ImportModal: React.FC<ImportModalProps> = ({
               if (typeof value === 'number') {
                 (product as any)[field] = value;
               } else if (typeof value === 'string') {
-                (product as any)[field] = value.trim();
+                const trimmedValue = value.trim();
+                // Converter strings numéricas para números
+                if (field === 'unitPriceRmb' || field === 'valorInvoiceUsd' || field === 'moq' || field === 'unitCtn' || 
+                    field === 'l' || field === 'w' || field === 'h' || field === 'cbm' || field === 'gw' || 
+                    field === 'nw' || field === 'pesoUnitario' || field === 'qtMinVenda') {
+                  const numValue = parseFloat(trimmedValue);
+                  (product as any)[field] = isNaN(numValue) ? 0 : numValue;
+                } else {
+                  (product as any)[field] = trimmedValue;
+                }
               }
             }
           });
 
-          // Validações básicas
+          // Validações básicas (mais flexíveis)
           if (!product.name && !product.description) {
             productErrors.push('Nome ou descrição é obrigatório');
           }
@@ -153,9 +209,19 @@ export const ImportModal: React.FC<ImportModalProps> = ({
             productErrors.push('Fabricante é obrigatório');
           }
 
-          if (product.unitPriceRmb <= 0) {
-            productErrors.push('Preço deve ser maior que zero');
+          if (product.unitPriceRmb < 0) {
+            productErrors.push('Preço não pode ser negativo');
           }
+
+          // Log para debug
+          console.log(`Produto ${index + 1}:`, {
+            name: product.name,
+            description: product.description,
+            referencia: product.referencia,
+            fabrica: product.fabrica,
+            unitPriceRmb: product.unitPriceRmb,
+            errors: productErrors.length
+          });
 
           if (productErrors.length > 0) {
             product._errors = productErrors;
@@ -165,6 +231,10 @@ export const ImportModal: React.FC<ImportModalProps> = ({
           products.push(product);
         });
 
+        console.log('Produtos processados:', products.length);
+        console.log('Erros encontrados:', newErrors.length);
+        console.log('Primeiro produto:', products[0]);
+        
         setImportedProducts(products);
         setErrors(newErrors);
         setStep('preview');
@@ -181,17 +251,25 @@ export const ImportModal: React.FC<ImportModalProps> = ({
     setStep('processing');
     
     try {
+      console.log('Produtos importados:', importedProducts.length);
+      console.log('Produtos com erros:', importedProducts.filter(p => p._errors && p._errors.length > 0).length);
+      
       // Filtrar apenas produtos sem erros
       const validProducts = importedProducts.filter(p => !p._errors || p._errors.length === 0);
       
+      console.log('Produtos válidos:', validProducts.length);
+      
       if (validProducts.length === 0) {
-        setErrors(['Nenhum produto válido para importar']);
+        setErrors(['Nenhum produto válido para importar. Verifique os erros acima.']);
         setStep('preview');
         return;
       }
 
       // Remover campos internos antes de enviar
       const productsToImport = validProducts.map(({ _rowIndex, _errors, ...product }) => product);
+      
+      console.log('Produtos para importar:', productsToImport.length);
+      console.log('Primeiro produto:', productsToImport[0]);
       
       await onImport(productsToImport);
       onClose();
