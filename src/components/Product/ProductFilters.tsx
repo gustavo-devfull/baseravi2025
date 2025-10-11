@@ -72,167 +72,382 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-        {/* Overlay */}
-        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={onClose} />
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 50,
+      overflowY: 'auto',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '1rem'
+    }}>
+      {/* Overlay */}
+      <div 
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(107, 114, 128, 0.75)',
+          transition: 'opacity 0.3s'
+        }} 
+        onClick={onClose} 
+      />
 
-        {/* Modal */}
-        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-          {/* Header */}
-          <div className="bg-white px-6 py-4 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className="flex items-center justify-center w-10 h-10 bg-primary-100 rounded-lg mr-3">
-                  <Filter className="w-6 h-6 text-primary-600" />
+      {/* Modal */}
+      <div style={{
+        position: 'relative',
+        backgroundColor: 'white',
+        borderRadius: '0.5rem',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+        width: '600px',
+        maxWidth: '90vw',
+        maxHeight: '90vh',
+        overflow: 'hidden',
+        transform: 'translateY(0)',
+        transition: 'all 0.3s'
+      }}>
+        {/* Header */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '1.5rem',
+          borderBottom: '1px solid #e5e7eb'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '2.5rem',
+                height: '2.5rem',
+                backgroundColor: '#dbeafe',
+                borderRadius: '0.5rem',
+                marginRight: '0.75rem'
+              }}>
+                <Filter style={{ width: '1.5rem', height: '1.5rem', color: '#2563eb' }} />
+              </div>
+              <div>
+                <h3 style={{
+                  fontSize: '1.125rem',
+                  fontWeight: '500',
+                  color: '#111827',
+                  margin: 0
+                }}>
+                  Filtros Avançados
+                </h3>
+                <p style={{
+                  fontSize: '0.875rem',
+                  color: '#6b7280',
+                  margin: 0
+                }}>
+                  Filtre produtos por critérios específicos
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={onClose}
+              style={{
+                color: '#9ca3af',
+                backgroundColor: 'transparent',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '0.25rem',
+                borderRadius: '0.25rem',
+                transition: 'color 0.2s'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#6b7280'}
+              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#9ca3af'}
+            >
+              <X style={{ width: '1.5rem', height: '1.5rem' }} />
+            </button>
+          </div>
+        </div>
+
+        {/* Form */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '1.5rem',
+          maxHeight: '60vh',
+          overflowY: 'auto'
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {/* Busca por texto */}
+            <div>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '0.25rem'
+              }}>
+                Buscar por nome ou descrição
+              </label>
+              <div style={{ position: 'relative' }}>
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  bottom: 0,
+                  left: 0,
+                  paddingLeft: '0.75rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  pointerEvents: 'none'
+                }}>
+                  <Search style={{ height: '1.25rem', width: '1.25rem', color: '#9ca3af' }} />
+                </div>
+                <input
+                  type="text"
+                  value={localFilters.search || ''}
+                  onChange={(e) => handleInputChange('search', e.target.value)}
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    paddingLeft: '2.5rem',
+                    paddingRight: '0.75rem',
+                    paddingTop: '0.5rem',
+                    paddingBottom: '0.5rem',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '0.5rem',
+                    backgroundColor: 'white',
+                    fontSize: '0.875rem',
+                    outline: 'none'
+                  }}
+                  placeholder="Digite para buscar..."
+                />
+              </div>
+            </div>
+
+            {/* Fabricante */}
+            <div>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '0.25rem'
+              }}>
+                Fabricante
+              </label>
+              <select
+                value={localFilters.fabrica || ''}
+                onChange={(e) => handleInputChange('fabrica', e.target.value)}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  paddingLeft: '0.75rem',
+                  paddingRight: '0.75rem',
+                  paddingTop: '0.5rem',
+                  paddingBottom: '0.5rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '0.5rem',
+                  backgroundColor: 'white',
+                  fontSize: '0.875rem',
+                  outline: 'none'
+                }}
+              >
+                <option value="">Todos os fabricantes</option>
+                {loading ? (
+                  <option disabled>Carregando...</option>
+                ) : (
+                  fabricas.map((fabrica) => (
+                    <option key={fabrica} value={fabrica}>
+                      {fabrica}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+
+            {/* Marca */}
+            <div>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '0.25rem'
+              }}>
+                Marca
+              </label>
+              <select
+                value={localFilters.marca || ''}
+                onChange={(e) => handleInputChange('marca', e.target.value)}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  paddingLeft: '0.75rem',
+                  paddingRight: '0.75rem',
+                  paddingTop: '0.5rem',
+                  paddingBottom: '0.5rem',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '0.5rem',
+                  backgroundColor: 'white',
+                  fontSize: '0.875rem',
+                  outline: 'none'
+                }}
+              >
+                <option value="">Todas as marcas</option>
+                {loading ? (
+                  <option disabled>Carregando...</option>
+                ) : (
+                  marcas.map((marca) => (
+                    <option key={marca} value={marca}>
+                      {marca}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
+
+            {/* Faixa de preço */}
+            <div>
+              <label style={{
+                display: 'block',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151',
+                marginBottom: '0.5rem'
+              }}>
+                Faixa de Preço (RMB)
+              </label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.75rem',
+                    color: '#6b7280',
+                    marginBottom: '0.25rem'
+                  }}>Preço mínimo</label>
+                  <input
+                    type="number"
+                    value={localFilters.minPrice || ''}
+                    onChange={(e) => handleInputChange('minPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                    step="0.01"
+                    min="0"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      paddingLeft: '0.75rem',
+                      paddingRight: '0.75rem',
+                      paddingTop: '0.5rem',
+                      paddingBottom: '0.5rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      backgroundColor: 'white',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0.00"
+                  />
                 </div>
                 <div>
-                  <h3 className="text-lg font-medium text-gray-900">
-                    Filtros Avançados
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    Filtre produtos por critérios específicos
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={onClose}
-                className="text-gray-400 hover:text-gray-500 transition-colors duration-200"
-              >
-                <X className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-
-          {/* Form */}
-          <div className="bg-white px-6 py-4">
-            <div className="space-y-4">
-              {/* Busca por texto */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Buscar por nome ou descrição
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
-                  </div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.75rem',
+                    color: '#6b7280',
+                    marginBottom: '0.25rem'
+                  }}>Preço máximo</label>
                   <input
-                    type="text"
-                    value={localFilters.search || ''}
-                    onChange={(e) => handleInputChange('search', e.target.value)}
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary-500 focus:border-primary-500"
-                    placeholder="Digite para buscar..."
+                    type="number"
+                    value={localFilters.maxPrice || ''}
+                    onChange={(e) => handleInputChange('maxPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                    step="0.01"
+                    min="0"
+                    style={{
+                      display: 'block',
+                      width: '100%',
+                      paddingLeft: '0.75rem',
+                      paddingRight: '0.75rem',
+                      paddingTop: '0.5rem',
+                      paddingBottom: '0.5rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      backgroundColor: 'white',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0.00"
                   />
                 </div>
               </div>
-
-              {/* Fabricante */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Fabricante
-                </label>
-                <select
-                  value={localFilters.fabrica || ''}
-                  onChange={(e) => handleInputChange('fabrica', e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                >
-                  <option value="">Todos os fabricantes</option>
-                  {loading ? (
-                    <option disabled>Carregando...</option>
-                  ) : (
-                    fabricas.map((fabrica) => (
-                      <option key={fabrica} value={fabrica}>
-                        {fabrica}
-                      </option>
-                    ))
-                  )}
-                </select>
-              </div>
-
-              {/* Marca */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Marca
-                </label>
-                <select
-                  value={localFilters.marca || ''}
-                  onChange={(e) => handleInputChange('marca', e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                >
-                  <option value="">Todas as marcas</option>
-                  {loading ? (
-                    <option disabled>Carregando...</option>
-                  ) : (
-                    marcas.map((marca) => (
-                      <option key={marca} value={marca}>
-                        {marca}
-                      </option>
-                    ))
-                  )}
-                </select>
-              </div>
-
-              {/* Faixa de preço */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Faixa de Preço (RMB)
-                </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">Preço mínimo</label>
-                    <input
-                      type="number"
-                      value={localFilters.minPrice || ''}
-                      onChange={(e) => handleInputChange('minPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                      step="0.01"
-                      min="0"
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      placeholder="0.00"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">Preço máximo</label>
-                    <input
-                      type="number"
-                      value={localFilters.maxPrice || ''}
-                      onChange={(e) => handleInputChange('maxPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                      step="0.01"
-                      min="0"
-                      className="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
-                      placeholder="0.00"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
+        </div>
 
-          {/* Footer */}
-          <div className="bg-gray-50 px-6 py-4 flex justify-between">
-            <div>
-              {hasActiveFilters && (
-                <button
-                  onClick={clearFilters}
-                  className="text-sm text-gray-600 hover:text-gray-800 transition-colors duration-200"
-                >
-                  Limpar todos os filtros
-                </button>
-              )}
-            </div>
-            <div className="flex space-x-3">
+        {/* Footer */}
+        <div style={{
+          backgroundColor: '#f9fafb',
+          padding: '1.5rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div>
+            {hasActiveFilters && (
               <button
-                onClick={onClose}
-                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                onClick={clearFilters}
+                style={{
+                  fontSize: '0.875rem',
+                  color: '#6b7280',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s'
+                }}
+                onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#374151'}
+                onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#6b7280'}
               >
-                Cancelar
+                Limpar todos os filtros
               </button>
-              <button
-                onClick={applyFilters}
-                className="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-              >
-                Aplicar Filtros
-              </button>
-            </div>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <button
+              onClick={onClose}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: '#374151',
+                backgroundColor: 'white',
+                border: '1px solid #d1d5db',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f9fafb'}
+              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'white'}
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={applyFilters}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                color: 'white',
+                backgroundColor: '#2563eb',
+                border: '1px solid transparent',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1d4ed8'}
+              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2563eb'}
+            >
+              Aplicar Filtros
+            </button>
           </div>
         </div>
       </div>

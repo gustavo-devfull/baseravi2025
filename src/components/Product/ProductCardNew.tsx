@@ -47,8 +47,8 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
       marginBottom: '1rem'
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1.5rem' }}>
-        {/* Coluna 1: Foto e Botões */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+        {/* Coluna 1: Foto */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {/* Área da imagem */}
           <div style={{
             width: '150px',
@@ -139,125 +139,119 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
               <span>Sem imagem</span>
             </div>
           </div>
-
-          {/* Botões de ação - um embaixo do outro */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%' }}>
-            <button
-              onClick={() => onEdit(product)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0.5rem',
-                backgroundColor: '#eab308',
-                color: 'white',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                border: 'none',
-                cursor: 'pointer',
-                width: '100%'
-              }}
-            >
-              <Edit style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
-              Editar
-            </button>
-            <button
-              onClick={() => onDelete(product.id!)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0.5rem',
-                backgroundColor: '#ef4444',
-                color: 'white',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                border: 'none',
-                cursor: 'pointer',
-                width: '100%'
-              }}
-            >
-              <Trash2 style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
-              Excluir
-            </button>
-            <button
-              onClick={() => onDeactivate(product.id!)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0.5rem',
-                backgroundColor: '#8b5cf6',
-                color: 'white',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                border: 'none',
-                cursor: 'pointer',
-                width: '100%'
-              }}
-            >
-              Desativar
-            </button>
-          </div>
         </div>
 
         {/* Coluna 2: Informações do Produto */}
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: '0.5rem' }}>
           {/* Marca */}
           <div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>Marca:</span>
-            <span style={{ marginLeft: '0.5rem', fontSize: '0.875rem', color: '#111827' }}>{productData.marca}</span>
+            <span style={{ fontSize: '0.875rem', color: '#111827' }}>{productData.marca}</span>
           </div>
 
           {/* Referência */}
           <div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>Referência:</span>
-            <div style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#111827', fontFamily: 'monospace' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 'bold', color: '#111827' }}>
               {productData.referencia}
             </div>
           </div>
 
           {/* Nome (Profit) */}
           <div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>Nome (Profit):</span>
-            <div style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#111827' }}>
+            <div style={{ fontSize: '0.875rem', color: '#111827' }}>
               {productData.nome}
             </div>
           </div>
 
           {/* Unit Price RMB */}
           <div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '500', color: '#374151' }}>Unit Price RMB:</span>
-            <div style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#111827', fontFamily: 'monospace' }}>
+            <div style={{ fontSize: '1rem', fontWeight: 'bold', color: '#111827' }}>
               {formatCurrency(productData.preco)}
             </div>
           </div>
-
-          {/* Botão Ver mais */}
-          <div style={{ marginTop: '1rem' }}>
-            <button
-              onClick={() => setShowDetailsModal(true)}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                padding: '0.5rem 1rem',
-                backgroundColor: '#e5e7eb',
-                color: '#374151',
-                borderRadius: '0.25rem',
-                fontSize: '0.75rem',
-                fontWeight: '500',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              <Eye style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
-              Ver mais
-            </button>
-          </div>
         </div>
+      </div>
+
+      {/* Botões de ação - linha horizontal */}
+      <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem' }}>
+        <button
+          onClick={() => onEdit(product)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem',
+            backgroundColor: '#6A94B4',
+            color: 'white',
+            borderRadius: '0.25rem',
+            fontSize: '0.75rem',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            flex: 1
+          }}
+        >
+          <Edit style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
+          Editar
+        </button>
+        <button
+          onClick={() => onDelete(product.id!)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem',
+            backgroundColor: '#E65737',
+            color: 'white',
+            borderRadius: '0.25rem',
+            fontSize: '0.75rem',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            flex: 1
+          }}
+        >
+          <Trash2 style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
+          Excluir
+        </button>
+        <button
+          onClick={() => onDeactivate(product.id!)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem',
+            backgroundColor: '#A16DC9',
+            color: 'white',
+            borderRadius: '0.25rem',
+            fontSize: '0.75rem',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            flex: 1
+          }}
+        >
+          Desativar
+        </button>
+        <button
+          onClick={() => setShowDetailsModal(true)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '0.5rem',
+            backgroundColor: '#F5E058',
+            color: '#374151',
+            borderRadius: '0.25rem',
+            fontSize: '0.75rem',
+            fontWeight: '500',
+            border: 'none',
+            cursor: 'pointer',
+            flex: 1
+          }}
+        >
+          <Eye style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
+          Ver mais
+        </button>
       </div>
 
       {/* Modal da imagem */}

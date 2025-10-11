@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import type { Product, ProductFormData, ProductFilters } from '../../types/Product';
 import { ProductService } from '../../services/productService';
 import { ProductListNew } from '../Product/ProductListNew';
@@ -15,10 +15,11 @@ import { AlertCircle } from 'lucide-react';
 export const Dashboard: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [hasProductsInDB, setHasProductsInDB] = useState<boolean | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showPermissionError, setShowPermissionError] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
   const [filters, setFilters] = useState<ProductFilters>({});
+  const [sortOption, setSortOption] = useState<string>('referencia-asc');
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | undefined>();
   const [showFilters, setShowFilters] = useState(false);
@@ -26,15 +27,28 @@ export const Dashboard: React.FC = () => {
   const [showBulkEditModal, setShowBulkEditModal] = useState(false);
   const [importedProducts, setImportedProducts] = useState<ProductFormData[]>([]);
 
+  // Verificar se há produtos no banco de dados
+  const checkHasProducts = useCallback(async () => {
+    try {
+      const hasProducts = await ProductService.hasProducts();
+      setHasProductsInDB(hasProducts);
+    } catch (error) {
+      console.error('Erro ao verificar produtos no banco:', error);
+      setHasProductsInDB(false);
+    }
+  }, []);
+
   // Carregar produtos
-  const loadProducts = async () => {
+  const loadProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
       
-      const searchFilters = searchValue ? { ...filters, search: searchValue } : filters;
-      const productsData = await ProductService.getAllProducts(searchFilters);
-      setProducts(productsData);
+      const productsData = await ProductService.getAllProducts(filters);
+      
+      // Aplicar ordenação
+      const sortedProducts = sortProducts(productsData, sortOption);
+      setProducts(sortedProducts);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erro ao carregar produtos';
       setError(errorMessage);
@@ -48,22 +62,50 @@ export const Dashboard: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, sortOption]);
 
   useEffect(() => {
     loadProducts();
-  }, [filters]);
+    checkHasProducts();
+  }, [loadProducts, checkHasProducts]);
 
-  // Debounce para busca
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (searchValue !== (filters.search || '')) {
-        loadProducts();
-      }
-    }, 500);
+  // Função para ordenar produtos
+  const sortProducts = (products: Product[], sortOption: string): Product[] => {
+    const sortedProducts = [...products];
+    
+    switch (sortOption) {
+      case 'referencia-asc':
+        return sortedProducts.sort((a, b) => (a.referencia || '').localeCompare(b.referencia || ''));
+      case 'referencia-desc':
+        return sortedProducts.sort((a, b) => (b.referencia || '').localeCompare(a.referencia || ''));
+      case 'name-asc':
+        return sortedProducts.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      case 'name-desc':
+        return sortedProducts.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+      case 'price-asc':
+        return sortedProducts.sort((a, b) => (a.unitPriceRmb || 0) - (b.unitPriceRmb || 0));
+      case 'price-desc':
+        return sortedProducts.sort((a, b) => (b.unitPriceRmb || 0) - (a.unitPriceRmb || 0));
+      case 'createdAt-desc':
+        return sortedProducts.sort((a, b) => {
+          const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return dateB - dateA;
+        });
+      case 'createdAt-asc':
+        return sortedProducts.sort((a, b) => {
+          const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return dateA - dateB;
+        });
+      default:
+        return sortedProducts;
+    }
+  };
 
-    return () => clearTimeout(timeoutId);
-  }, [searchValue]);
+  const handleSortChange = (newSortOption: string) => {
+    setSortOption(newSortOption);
+  };
 
   const handleAddProduct = () => {
     setEditingProduct(undefined);
@@ -92,9 +134,9 @@ export const Dashboard: React.FC = () => {
       try {
         // Implementar lógica de desativação
         console.log('Desativar produto:', productId);
-      } catch (err) {
+      } catch (error) {
         setError('Erro ao desativar produto');
-        console.error('Erro ao desativar produto:', err);
+        console.error('Erro ao desativar produto:', error);
       }
     }
   };
@@ -112,17 +154,17 @@ export const Dashboard: React.FC = () => {
         await ProductService.createProduct(productData);
       }
       await loadProducts();
-    } catch (err) {
+    } catch {
       throw new Error('Erro ao salvar produto');
     }
   };
 
-  const handleSearch = (search: string) => {
-    setSearchValue(search);
-  };
-
   const handleFiltersChange = (newFilters: ProductFilters) => {
     setFilters(newFilters);
+  };
+
+  const handleClearFilters = () => {
+    setFilters({});
   };
 
   const handleImportSpreadsheet = () => {
@@ -173,15 +215,17 @@ export const Dashboard: React.FC = () => {
       {showPermissionError && (
         <FirebasePermissionError />
       )}
-      {products.length === 0 && !loading && !showPermissionError && (
+      {products.length === 0 && !loading && !showPermissionError && hasProductsInDB === false && (
         <InitializeFirebase />
       )}
       <Layout
         onAddProduct={handleAddProduct}
-        onSearch={handleSearch}
-        searchValue={searchValue}
         onToggleFilters={() => setShowFilters(true)}
+        onClearFilters={handleClearFilters}
+        onSortChange={handleSortChange}
         onImportSpreadsheet={handleImportSpreadsheet}
+        hasActiveFilters={Object.values(filters).some(value => value !== undefined && value !== '')}
+        activeFilters={filters}
       >
         <div className="space-y-6">
         {/* Erro */}

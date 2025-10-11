@@ -5,26 +5,34 @@ import { SearchBar } from './SearchBar';
 interface LayoutProps {
   children: React.ReactNode;
   onAddProduct: () => void;
-  onSearch: (search: string) => void;
-  searchValue: string;
   onToggleFilters: () => void;
+  onClearFilters: () => void;
+  onSortChange: (sortOption: string) => void;
   onImportSpreadsheet: () => void;
+  hasActiveFilters?: boolean;
+  activeFilters?: {
+    search?: string;
+    fabrica?: string;
+    marca?: string;
+    minPrice?: number;
+    maxPrice?: number;
+  };
 }
 
 export const Layout: React.FC<LayoutProps> = ({ 
   children, 
   onAddProduct, 
-  onSearch, 
-  searchValue,
-  onImportSpreadsheet
+  onToggleFilters,
+  onClearFilters,
+  onSortChange,
+  onImportSpreadsheet,
+  hasActiveFilters = false,
+  activeFilters = {}
 }) => {
   const handleExportSpreadsheet = () => {
     console.log('Exportar planilha');
   };
 
-  const handleViewCompact = () => {
-    console.log('Visualizar compacto');
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -33,12 +41,14 @@ export const Layout: React.FC<LayoutProps> = ({
 
       {/* Barra de busca e filtros */}
       <SearchBar
-        searchValue={searchValue}
-        onSearch={onSearch}
         onAddProduct={onAddProduct}
         onImportSpreadsheet={onImportSpreadsheet}
         onExportSpreadsheet={handleExportSpreadsheet}
-        onViewCompact={handleViewCompact}
+        onToggleFilters={onToggleFilters}
+        onClearFilters={onClearFilters}
+        onSortChange={onSortChange}
+        hasActiveFilters={hasActiveFilters}
+        activeFilters={activeFilters}
       />
 
       {/* Conteúdo principal */}

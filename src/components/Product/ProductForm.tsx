@@ -50,43 +50,43 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   onSubmit,
 }) => {
   const [formData, setFormData] = useState<ProductFormData>(initialFormData);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (product) {
       setFormData({
-        linhaCotacoes: product.linhaCotacoes,
-        referencia: product.referencia,
-        fabrica: product.fabrica,
-        itemNo: product.itemNo,
-        description: product.description,
-        name: product.name,
-        remark: product.remark,
-        obs: product.obs,
-        moq: product.moq,
-        unitCtn: product.unitCtn,
-        unitPriceRmb: product.unitPriceRmb,
-        unit: product.unit,
-        l: product.l,
-        w: product.w,
-        h: product.h,
-        cbm: product.cbm,
-        gw: product.gw,
-        nw: product.nw,
-        pesoUnitario: product.pesoUnitario,
-        marca: product.marca,
-        codRavi: product.codRavi,
-        ean: product.ean,
-        dun: product.dun,
-        nomeInvoiceEn: product.nomeInvoiceEn,
-        nomeDiNb: product.nomeDiNb,
-        nomeRaviProfit: product.nomeRaviProfit,
-        qtMinVenda: product.qtMinVenda,
-        ncm: product.ncm,
-        cest: product.cest,
-        valorInvoiceUsd: product.valorInvoiceUsd,
-        obsPedido: product.obsPedido,
+        linhaCotacoes: product.linhaCotacoes || '',
+        referencia: product.referencia || '',
+        fabrica: product.fabrica || '',
+        itemNo: product.itemNo || '',
+        description: product.description || '',
+        name: product.name || '',
+        remark: product.remark || '',
+        obs: product.obs || '',
+        moq: product.moq || 0,
+        unitCtn: product.unitCtn || 0,
+        unitPriceRmb: product.unitPriceRmb || 0,
+        unit: product.unit || '',
+        l: product.l || 0,
+        w: product.w || 0,
+        h: product.h || 0,
+        cbm: product.cbm || 0,
+        gw: product.gw || 0,
+        nw: product.nw || 0,
+        pesoUnitario: product.pesoUnitario || 0,
+        marca: product.marca || '',
+        codRavi: product.codRavi || '',
+        ean: product.ean || '',
+        dun: product.dun || '',
+        nomeInvoiceEn: product.nomeInvoiceEn || '',
+        nomeDiNb: product.nomeDiNb || '',
+        nomeRaviProfit: product.nomeRaviProfit || '',
+        qtMinVenda: product.qtMinVenda || 0,
+        ncm: product.ncm || '',
+        cest: product.cest || '',
+        valorInvoiceUsd: product.valorInvoiceUsd || 0,
+        obsPedido: product.obsPedido || '',
       });
     } else {
       setFormData(initialFormData);
@@ -171,7 +171,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         borderRadius: '0.5rem',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         width: '100%',
-        maxWidth: '56rem',
+        maxWidth: '95vw',
         maxHeight: '90vh',
         overflow: 'hidden',
         display: 'flex',
@@ -225,21 +225,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-              {/* Informações Básicas */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <h4 style={{
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  borderBottom: '1px solid #e5e7eb',
-                  paddingBottom: '0.5rem',
-                  margin: 0
-                }}>
-                  Informações Básicas
-                </h4>
-                
+          <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '1.5rem' }}>
+            {/* Seção 1: Informações Básicas */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
+                color: '#111827',
+                borderBottom: '2px solid #e5e7eb',
+                paddingBottom: '0.75rem',
+                marginBottom: '1.5rem'
+              }}>
+                Informações Básicas
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -276,34 +275,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Descrição
-                  </label>
-                  <textarea
-                    name="description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    rows={3}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none',
-                      resize: 'vertical'
-                    }}
-                    placeholder="Descrição do produto"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
                     Referência *
                   </label>
                   <input
@@ -319,7 +290,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       fontSize: '0.875rem',
                       outline: 'none'
                     }}
-                    placeholder="Código de referência"
+                    placeholder="Referência do produto"
                   />
                   {errors.referencia && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.referencia}</p>}
                 </div>
@@ -378,392 +349,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     placeholder="Marca do produto"
                   />
                 </div>
-              </div>
-
-              {/* Preços e Quantidades */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <h4 style={{
-                  fontSize: '0.875rem',
-                  fontWeight: '500',
-                  color: '#111827',
-                  borderBottom: '1px solid #e5e7eb',
-                  paddingBottom: '0.5rem',
-                  margin: 0
-                }}>
-                  Preços e Quantidades
-                </h4>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Preço Unitário RMB *
-                  </label>
-                  <input
-                    type="number"
-                    name="unitPriceRmb"
-                    value={formData.unitPriceRmb}
-                    onChange={handleInputChange}
-                    step="0.01"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: `1px solid ${errors.unitPriceRmb ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
-                  />
-                  {errors.unitPriceRmb && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.unitPriceRmb}</p>}
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Valor Invoice USD
-                  </label>
-                  <input
-                    type="number"
-                    name="valorInvoiceUsd"
-                    value={formData.valorInvoiceUsd}
-                    onChange={handleInputChange}
-                    step="0.01"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    MOQ (Quantidade Mínima)
-                  </label>
-                  <input
-                    type="number"
-                    name="moq"
-                    value={formData.moq}
-                    onChange={handleInputChange}
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Unidades por CTN
-                  </label>
-                  <input
-                    type="number"
-                    name="unitCtn"
-                    value={formData.unitCtn}
-                    onChange={handleInputChange}
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Unidade
-                  </label>
-                  <input
-                    type="text"
-                    name="unit"
-                    value={formData.unit}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Ex: pcs, kg, m"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Dimensões e Peso */}
-            <div style={{ marginTop: '1.5rem' }}>
-              <h4 style={{
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#111827',
-                borderBottom: '1px solid #e5e7eb',
-                paddingBottom: '0.5rem',
-                marginBottom: '1rem',
-                margin: 0
-              }}>
-                Dimensões e Peso
-              </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem' }}>
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Comprimento (cm)
-                  </label>
-                  <input
-                    type="number"
-                    name="l"
-                    value={formData.l}
-                    onChange={handleInputChange}
-                    step="0.1"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Largura (cm)
-                  </label>
-                  <input
-                    type="number"
-                    name="w"
-                    value={formData.w}
-                    onChange={handleInputChange}
-                    step="0.1"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Altura (cm)
-                  </label>
-                  <input
-                    type="number"
-                    name="h"
-                    value={formData.h}
-                    onChange={handleInputChange}
-                    step="0.1"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Peso Unitário (kg)
-                  </label>
-                  <input
-                    type="number"
-                    name="pesoUnitario"
-                    value={formData.pesoUnitario}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Peso Bruto (kg)
-                  </label>
-                  <input
-                    type="number"
-                    name="gw"
-                    value={formData.gw}
-                    onChange={handleInputChange}
-                    step="0.1"
-                    min="0"
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    CBM (m³)
-                  </label>
-                  <input
-                    type="number"
-                    name="cbm"
-                    value={formData.cbm}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.000"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Campos Adicionais */}
-            <div style={{ marginTop: '1.5rem' }}>
-              <h4 style={{
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#111827',
-                borderBottom: '1px solid #e5e7eb',
-                paddingBottom: '0.5rem',
-                marginBottom: '1rem',
-                margin: 0
-              }}>
-                Campos Adicionais
-              </h4>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Linha de Cotações
-                  </label>
-                  <input
-                    type="text"
-                    name="linhaCotacoes"
-                    value={formData.linhaCotacoes}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Linha de cotações"
-                  />
-                </div>
 
                 <div>
                   <label style={{
@@ -800,12 +385,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Remark
+                    Linha Cotações
                   </label>
                   <input
                     type="text"
-                    name="remark"
-                    value={formData.remark}
+                    name="linhaCotacoes"
+                    value={formData.linhaCotacoes}
                     onChange={handleInputChange}
                     style={{
                       width: '100%',
@@ -815,7 +400,104 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       fontSize: '0.875rem',
                       outline: 'none'
                     }}
-                    placeholder="Remark do produto"
+                    placeholder="Linha de cotações"
+                  />
+                </div>
+              </div>
+              <div style={{ marginTop: '1rem' }}>
+                <label style={{
+                  display: 'block',
+                  fontSize: '0.875rem',
+                  fontWeight: '500',
+                  color: '#374151',
+                  marginBottom: '0.25rem'
+                }}>
+                  Descrição
+                </label>
+                <textarea
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  rows={3}
+                  style={{
+                    width: '100%',
+                    padding: '0.5rem 0.75rem',
+                    border: '1px solid #d1d5db',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    resize: 'vertical'
+                  }}
+                  placeholder="Descrição do produto"
+                />
+              </div>
+            </div>
+
+            {/* Seção 2: Preços e Quantidades */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
+                color: '#111827',
+                borderBottom: '2px solid #e5e7eb',
+                paddingBottom: '0.75rem',
+                marginBottom: '1.5rem'
+              }}>
+                Preços e Quantidades
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Preço Unitário RMB *
+                  </label>
+                  <input
+                    type="number"
+                    name="unitPriceRmb"
+                    value={formData.unitPriceRmb}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: `1px solid ${errors.unitPriceRmb ? '#ef4444' : '#d1d5db'}`,
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0.00"
+                  />
+                  {errors.unitPriceRmb && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.unitPriceRmb}</p>}
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Valor Invoice USD
+                  </label>
+                  <input
+                    type="number"
+                    name="valorInvoiceUsd"
+                    value={formData.valorInvoiceUsd}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0.00"
                   />
                 </div>
 
@@ -827,7 +509,334 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Código Ravi
+                    MOQ
+                  </label>
+                  <input
+                    type="number"
+                    name="moq"
+                    value={formData.moq}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Unit CTN
+                  </label>
+                  <input
+                    type="number"
+                    name="unitCtn"
+                    value={formData.unitCtn}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Qt Min Venda
+                  </label>
+                  <input
+                    type="number"
+                    name="qtMinVenda"
+                    value={formData.qtMinVenda}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Unit
+                  </label>
+                  <input
+                    type="text"
+                    name="unit"
+                    value={formData.unit}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="Unidade"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Seção 3: Dimensões e Peso */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
+                color: '#111827',
+                borderBottom: '2px solid #e5e7eb',
+                paddingBottom: '0.75rem',
+                marginBottom: '1.5rem'
+              }}>
+                Dimensões e Peso
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Largura (L)
+                  </label>
+                  <input
+                    type="number"
+                    name="l"
+                    value={formData.l}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Altura (H)
+                  </label>
+                  <input
+                    type="number"
+                    name="h"
+                    value={formData.h}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Profundidade (W)
+                  </label>
+                  <input
+                    type="number"
+                    name="w"
+                    value={formData.w}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    CBM (m³)
+                  </label>
+                  <input
+                    type="number"
+                    name="cbm"
+                    value={formData.cbm}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Peso Unitário (kg)
+                  </label>
+                  <input
+                    type="number"
+                    name="pesoUnitario"
+                    value={formData.pesoUnitario}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Peso Bruto (GW)
+                  </label>
+                  <input
+                    type="number"
+                    name="gw"
+                    value={formData.gw}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Peso Líquido (NW)
+                  </label>
+                  <input
+                    type="number"
+                    name="nw"
+                    value={formData.nw}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Seção 4: Campos Adicionais */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
+                color: '#111827',
+                borderBottom: '2px solid #e5e7eb',
+                paddingBottom: '0.75rem',
+                marginBottom: '1.5rem'
+              }}>
+                Campos Adicionais
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Código RAVI
                   </label>
                   <input
                     type="text"
@@ -842,7 +851,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       fontSize: '0.875rem',
                       outline: 'none'
                     }}
-                    placeholder="Código Ravi"
+                    placeholder="Código RAVI"
                   />
                 </div>
 
@@ -908,114 +917,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Nome Invoice EN
-                  </label>
-                  <input
-                    type="text"
-                    name="nomeInvoiceEn"
-                    value={formData.nomeInvoiceEn}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome em inglês para invoice"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Nome DI NB
-                  </label>
-                  <input
-                    type="text"
-                    name="nomeDiNb"
-                    value={formData.nomeDiNb}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome DI NB"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Nome Ravi Profit
-                  </label>
-                  <input
-                    type="text"
-                    name="nomeRaviProfit"
-                    value={formData.nomeRaviProfit}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome no sistema Ravi Profit"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
-                    Quantidade Mínima de Venda
-                  </label>
-                  <input
-                    type="number"
-                    name="qtMinVenda"
-                    value={formData.qtMinVenda}
-                    onChange={handleInputChange}
-                    style={{
-                      width: '100%',
-                      padding: '0.5rem 0.75rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
-                  />
-                </div>
-
-                <div>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.875rem',
-                    fontWeight: '500',
-                    color: '#374151',
-                    marginBottom: '0.25rem'
-                  }}>
                     NCM
                   </label>
                   <input
@@ -1070,12 +971,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Peso Líquido (kg)
+                    Nome Invoice EN
                   </label>
                   <input
-                    type="number"
-                    name="nw"
-                    value={formData.nw}
+                    type="text"
+                    name="nomeInvoiceEn"
+                    value={formData.nomeInvoiceEn}
                     onChange={handleInputChange}
                     style={{
                       width: '100%',
@@ -1085,27 +986,79 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       fontSize: '0.875rem',
                       outline: 'none'
                     }}
-                    placeholder="0.0"
+                    placeholder="Nome em inglês"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Nome DI NB
+                  </label>
+                  <input
+                    type="text"
+                    name="nomeDiNb"
+                    value={formData.nomeDiNb}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="Nome DI NB"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    Nome RAVI Profit
+                  </label>
+                  <input
+                    type="text"
+                    name="nomeRaviProfit"
+                    value={formData.nomeRaviProfit}
+                    onChange={handleInputChange}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none'
+                    }}
+                    placeholder="Nome RAVI Profit"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Observações */}
-            <div style={{ marginTop: '1.5rem' }}>
-              <h4 style={{
-                fontSize: '0.875rem',
-                fontWeight: '500',
+            {/* Seção 5: Observações */}
+            <div style={{ marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '1rem',
+                fontWeight: '600',
                 color: '#111827',
-                borderBottom: '1px solid #e5e7eb',
-                paddingBottom: '0.5rem',
-                marginBottom: '1rem',
-                margin: 0
+                borderBottom: '2px solid #e5e7eb',
+                paddingBottom: '0.75rem',
+                marginBottom: '1.5rem'
               }}>
                 Observações
-              </h4>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -1114,13 +1067,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Observações Gerais
+                    Remark
                   </label>
                   <textarea
-                    name="obs"
-                    value={formData.obs}
+                    name="remark"
+                    value={formData.remark}
                     onChange={handleInputChange}
-                    rows={3}
+                    rows={4}
                     style={{
                       width: '100%',
                       padding: '0.5rem 0.75rem',
@@ -1130,7 +1083,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       outline: 'none',
                       resize: 'vertical'
                     }}
-                    placeholder="Observações gerais sobre o produto"
+                    placeholder="Observações gerais"
                   />
                 </div>
 
@@ -1142,13 +1095,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     color: '#374151',
                     marginBottom: '0.25rem'
                   }}>
-                    Observações do Pedido
+                    OBS
                   </label>
                   <textarea
-                    name="obsPedido"
-                    value={formData.obsPedido}
+                    name="obs"
+                    value={formData.obs}
                     onChange={handleInputChange}
-                    rows={3}
+                    rows={4}
                     style={{
                       width: '100%',
                       padding: '0.5rem 0.75rem',
@@ -1158,7 +1111,35 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       outline: 'none',
                       resize: 'vertical'
                     }}
-                    placeholder="Observações específicas para pedidos"
+                    placeholder="Observações adicionais"
+                  />
+                </div>
+
+                <div>
+                  <label style={{
+                    display: 'block',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#374151',
+                    marginBottom: '0.25rem'
+                  }}>
+                    OBS Pedido
+                  </label>
+                  <textarea
+                    name="obsPedido"
+                    value={formData.obsPedido}
+                    onChange={handleInputChange}
+                    rows={4}
+                    style={{
+                      width: '100%',
+                      padding: '0.5rem 0.75rem',
+                      border: '1px solid #d1d5db',
+                      borderRadius: '0.5rem',
+                      fontSize: '0.875rem',
+                      outline: 'none',
+                      resize: 'vertical'
+                    }}
+                    placeholder="Observações do pedido"
                   />
                 </div>
               </div>
@@ -1169,22 +1150,22 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           <div style={{
             backgroundColor: '#f9fafb',
             padding: '1.5rem',
+            borderTop: '1px solid #e5e7eb',
             display: 'flex',
             justifyContent: 'flex-end',
-            gap: '0.75rem',
-            borderTop: '1px solid #e5e7eb'
+            gap: '0.75rem'
           }}>
             <button
               type="button"
               onClick={onClose}
               style={{
-                padding: '0.5rem 1rem',
+                padding: '0.75rem 1.5rem',
+                backgroundColor: 'transparent',
+                color: '#6b7280',
+                borderRadius: '0.5rem',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: '#374151',
-                backgroundColor: 'white',
                 border: '1px solid #d1d5db',
-                borderRadius: '0.5rem',
                 cursor: 'pointer'
               }}
             >
@@ -1194,20 +1175,20 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               type="submit"
               disabled={isSubmitting}
               style={{
-                display: 'inline-flex',
+                display: 'flex',
                 alignItems: 'center',
-                padding: '0.5rem 1rem',
+                padding: '0.75rem 1.5rem',
+                backgroundColor: isSubmitting ? '#9ca3af' : '#2563eb',
+                color: 'white',
+                borderRadius: '0.5rem',
                 fontSize: '0.875rem',
                 fontWeight: '500',
-                color: 'white',
-                backgroundColor: isSubmitting ? '#9ca3af' : '#2563eb',
                 border: 'none',
-                borderRadius: '0.5rem',
                 cursor: isSubmitting ? 'not-allowed' : 'pointer'
               }}
             >
               <Save style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />
-              {isSubmitting ? 'Salvando...' : 'Salvar Produto'}
+              {isSubmitting ? 'Salvando...' : 'Salvar'}
             </button>
           </div>
         </form>
