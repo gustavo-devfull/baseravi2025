@@ -114,7 +114,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 </h4>
                 <div style={{
                   width: '100%',
-                  height: '350px',
+                  height: '300px',
                   backgroundColor: '#f9fafb',
                   borderRadius: '0.5rem',
                   border: '2px solid #e5e7eb',
@@ -185,25 +185,27 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                     <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Descrição:</span>
                     <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.description || 'N/A'}</div>
                   </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Referência:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.referencia || 'N/A'}</div>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Fabricante:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.fabrica || 'N/A'}</div>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Marca:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.marca || 'N/A'}</div>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Item No:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.itemNo || 'N/A'}</div>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Linha Cotações:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.linhaCotacoes || 'N/A'}</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem' }}>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Referência:</span>
+                      <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.referencia || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Fabricante:</span>
+                      <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.fabrica || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Marca:</span>
+                      <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.marca || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Item No:</span>
+                      <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.itemNo || 'N/A'}</div>
+                    </div>
+                    <div>
+                      <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Linha Cotações:</span>
+                      <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.linhaCotacoes || 'N/A'}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -216,7 +218,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                   Preços e Quantidades
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Preço Unitário RMB:</span>
                     <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{formatCurrency(product.unitPriceRmb || 0)}</div>
@@ -283,7 +285,7 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                 <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                   Códigos
                 </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280' }}>Código Ravi:</span>
                     <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.2' }}>{product.codRavi || 'N/A'}</div>

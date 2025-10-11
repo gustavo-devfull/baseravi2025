@@ -41,9 +41,9 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
     <div style={{
       backgroundColor: 'white',
       borderRadius: '0.5rem',
-      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
-      border: '1px solid #e5e7eb',
-      padding: '1.5rem',
+      boxShadow: '0 15px 15px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      border: '1px solid #e5e7ebaf',
+      padding: '1rem',
       marginBottom: '1rem'
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1.5rem' }}>
@@ -145,7 +145,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
         <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', gap: '0.5rem' }}>
           {/* Marca */}
           <div>
-            <span style={{ fontSize: '0.875rem', color: '#111827' }}>{productData.marca}</span>
+            <span style={{ fontSize: '0.775rem', color: '#111827' }}>{productData.marca}</span>
           </div>
 
           {/* Referência */}
@@ -157,7 +157,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
 
           {/* Nome (Profit) */}
           <div>
-            <div style={{ fontSize: '0.875rem', color: '#111827' }}>
+            <div style={{ fontSize: '0.75rem', color: '#111827' }}>
               {productData.nome}
             </div>
           </div>
