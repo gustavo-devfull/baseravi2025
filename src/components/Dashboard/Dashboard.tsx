@@ -278,8 +278,39 @@ export const Dashboard: React.FC = () => {
         onClose={() => setShowBulkEditModal(false)}
         products={importedProducts}
         onSave={handleBulkSave}
-      />
+        />
       </Layout>
+
+      {/* Modal do formulário de produto */}
+      <ProductForm
+        product={editingProduct}
+        isOpen={showProductForm}
+        onClose={() => setShowProductForm(false)}
+        onSubmit={handleSubmitProduct}
+      />
+
+      {/* Modal de filtros */}
+      <FiltersComponent
+        isOpen={showFilters}
+        onClose={() => setShowFilters(false)}
+        filters={filters}
+        onFiltersChange={handleFiltersChange}
+      />
+
+      {/* Modal de importação */}
+      <ImportModal
+        isOpen={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        onImport={handleImportProducts}
+      />
+
+      {/* Modal de edição em lote */}
+      <BulkEditModal
+        isOpen={showBulkEditModal}
+        onClose={() => setShowBulkEditModal(false)}
+        products={importedProducts}
+        onSave={handleBulkSave}
+      />
     </>
   );
 };

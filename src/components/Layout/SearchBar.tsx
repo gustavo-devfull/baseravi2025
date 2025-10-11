@@ -143,7 +143,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             onClick={onAddProduct}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: '#0175a6',
+              backgroundColor: '#0175a6bf',
               color: 'white',
               borderRadius: '0.5rem',
               fontSize: '0.875rem',
@@ -160,7 +160,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             onClick={onImportSpreadsheet}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: '#3A9147',
+              backgroundColor: '#0175a6',
               color: 'white',
               borderRadius: '0.5rem',
               fontSize: '0.875rem',
@@ -177,8 +177,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             onClick={onExportSpreadsheet}
             style={{
               padding: '0.5rem 1rem',
-              backgroundColor: '#3A5D91',
-              color: 'white',
+              backgroundColor: '#0175a62a',
+              color: '#0175a6',
               borderRadius: '0.5rem',
               fontSize: '0.875rem',
               fontWeight: '500',

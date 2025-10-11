@@ -180,7 +180,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0.5rem',
-            backgroundColor: '#6A94B4',
+            backgroundColor: '#0175a6',
             color: 'white',
             borderRadius: '0.25rem',
             fontSize: '0.75rem',
@@ -200,7 +200,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0.5rem',
-            backgroundColor: '#E65737',
+            backgroundColor: '#E65737f9',
             color: 'white',
             borderRadius: '0.25rem',
             fontSize: '0.75rem',
@@ -220,7 +220,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0.5rem',
-            backgroundColor: '#A16DC9',
+            backgroundColor: '#0175a6af',
             color: 'white',
             borderRadius: '0.25rem',
             fontSize: '0.75rem',
@@ -239,7 +239,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             padding: '0.5rem',
-            backgroundColor: '#F5E058',
+            backgroundColor: '#0175a62a',
             color: '#374151',
             borderRadius: '0.25rem',
             fontSize: '0.75rem',
@@ -250,7 +250,7 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
           }}
         >
           <Eye style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
-          Ver mais
+          +info
         </button>
       </div>
 

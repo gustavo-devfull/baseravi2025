@@ -5,7 +5,7 @@ interface HeaderProps {}
 
 export const Header: React.FC<HeaderProps> = () => {
   return (
-    <header style={{ backgroundColor: 'white', borderBottom: '1px solid #e5e7eb' }}>
+    <header style={{ backgroundColor: '#0175a6', borderBottom: '1px solid #e5e7eb' }}>
       <div style={{ maxWidth: '1216px', margin: '0 auto', padding: '0 1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '4rem' }}>
           {/* Logo RAVI e Título */}
@@ -13,18 +13,18 @@ export const Header: React.FC<HeaderProps> = () => {
             <img 
               src={RaviLogo} 
               alt="RAVI Logo" 
-              style={{ height: '48px', width: 'auto', cursor: 'pointer' }}
+              style={{ height: '50px', width: 'auto', cursor: 'pointer',  }}
               onClick={() => window.location.reload()}
             />
-            <h2 style={{ 
-              fontSize: '1.25rem', 
-              fontWeight: '500', 
-              color: '#111827',
-              padding: '16px',
-              margin: 0
-            }}>
-              Base de Produtos
-            </h2>
+
+            
+        <span className="text-xl font-[500] tracking-[-0.9px] text-[#ffffff] uppercase" style={{ 
+  padding: '16px',
+  fontSize: '18px'
+
+}}>
+  Base de Produtos
+</span>
           </div>
 
           {/* Botões do lado direito */}
@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = () => {
                 display: 'flex', 
                 alignItems: 'center', 
                 padding: '0.5rem 1rem', 
-                backgroundColor: '#000000', 
+                backgroundColor: '#0000008f', 
                 color: 'white', 
                 borderRadius: '0.5rem', 
                 fontSize: '0.875rem', 
@@ -49,7 +49,7 @@ export const Header: React.FC<HeaderProps> = () => {
                 width: '1rem', 
                 height: '1rem', 
                 marginRight: '0.5rem', 
-                backgroundColor: 'white', 
+                backgroundColor: '#ffffff45', 
                 borderRadius: '0.125rem', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = () => {
             {/* Botão Controle de Importação */}
             <button style={{ 
               padding: '0.5rem 1rem', 
-              backgroundColor: '#737373', 
+              backgroundColor: '#0000004f', 
               color: 'white', 
               borderRadius: '0.5rem', 
               fontSize: '0.875rem', 
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = () => {
             {/* Botão Sair */}
             <button style={{ 
               padding: '0.5rem 1rem', 
-              backgroundColor: '#dc2626', 
+              backgroundColor: '#dc2626ae', 
               color: 'white', 
               borderRadius: '0.5rem', 
               fontSize: '0.875rem', 
