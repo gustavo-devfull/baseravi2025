@@ -75,13 +75,13 @@ export const Dashboard: React.FC = () => {
     
     switch (sortOption) {
       case 'referencia-asc':
-        return sortedProducts.sort((a, b) => (a.referencia || '').localeCompare(b.referencia || ''));
+        return sortedProducts.sort((a, b) => String(a.referencia || '').localeCompare(String(b.referencia || '')));
       case 'referencia-desc':
-        return sortedProducts.sort((a, b) => (b.referencia || '').localeCompare(a.referencia || ''));
+        return sortedProducts.sort((a, b) => String(b.referencia || '').localeCompare(String(a.referencia || '')));
       case 'name-asc':
-        return sortedProducts.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+        return sortedProducts.sort((a, b) => String(a.name || '').localeCompare(String(b.name || '')));
       case 'name-desc':
-        return sortedProducts.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+        return sortedProducts.sort((a, b) => String(b.name || '').localeCompare(String(a.name || '')));
       case 'price-asc':
         return sortedProducts.sort((a, b) => (a.unitPriceRmb || 0) - (b.unitPriceRmb || 0));
       case 'price-desc':
