@@ -19,7 +19,7 @@ export const Dashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [showPermissionError, setShowPermissionError] = useState(false);
   const [filters, setFilters] = useState<ProductFilters>({});
-  const [sortOption, setSortOption] = useState<string>('referencia-asc');
+  const [sortOption, setSortOption] = useState<string>('createdAt-desc');
   const [showProductForm, setShowProductForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | undefined>();
   const [showFilters, setShowFilters] = useState(false);
@@ -171,17 +171,32 @@ export const Dashboard: React.FC = () => {
     setShowImportModal(true);
   };
 
-  const handleImportProducts = (products: ProductFormData[]) => {
+  const handleImportProducts = async (products: ProductFormData[]) => {
     console.log('Dashboard - Produtos recebidos:', products.length);
     console.log('Dashboard - Primeiro produto:', products[0]);
-    setImportedProducts(products);
-    setShowImportModal(false);
     
-    // Pequeno delay para garantir que o estado seja atualizado
-    setTimeout(() => {
-      console.log('Dashboard - Abrindo modal de edição com produtos:', products.length);
-      setShowBulkEditModal(true);
-    }, 100);
+    try {
+      // Gerar REFs automáticos para produtos que não têm REF
+      const productsWithRefs = await ProductService.generateRefsForImportedProducts(products);
+      console.log('Dashboard - Produtos com REFs gerados:', productsWithRefs.length);
+      
+      setImportedProducts(productsWithRefs);
+      setShowImportModal(false);
+      
+      // Pequeno delay para garantir que o estado seja atualizado
+      setTimeout(() => {
+        console.log('Dashboard - Abrindo modal de edição com produtos:', productsWithRefs.length);
+        setShowBulkEditModal(true);
+      }, 100);
+    } catch (error) {
+      console.error('Erro ao gerar REFs automáticos:', error);
+      // Em caso de erro, usar produtos originais
+      setImportedProducts(products);
+      setShowImportModal(false);
+      setTimeout(() => {
+        setShowBulkEditModal(true);
+      }, 100);
+    }
   };
 
   const handleBulkSave = async (products: ProductFormData[]) => {

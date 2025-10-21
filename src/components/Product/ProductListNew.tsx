@@ -21,14 +21,14 @@ export const ProductListNew: React.FC<ProductListNewProps> = ({
 }) => {
   if (loading) {
     return (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem', width: '100%' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
         {[...Array(6)].map((_, index) => (
           <div key={index} style={{
             backgroundColor: 'white',
             borderRadius: '0.5rem',
             boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
             border: '1px solid #e5e7eb',
-            padding: '1.5rem',
+            padding: '1rem',
             animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
           }}>
             <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '1.5rem' }}>
@@ -85,9 +85,9 @@ export const ProductListNew: React.FC<ProductListNewProps> = ({
 
   return (
     <div style={{ 
-      display: 'grid', 
-      gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '1.5rem',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '1rem',
       width: '100%'
     }}>
       {products.map((product) => (

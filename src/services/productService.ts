@@ -171,6 +171,100 @@ export class ProductService {
     }
   }
 
+  // Buscar o último REF que começa com "RM" e gerar o próximo número da sequência
+  static async getNextRMReference(): Promise<string> {
+    try {
+      // Buscar todos os produtos ordenados por createdAt para garantir ordem
+      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      
+      let maxRMNumber = 1405; // Último REF conhecido: RM1405
+      
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const referencia = data.referencia;
+        
+        if (referencia && typeof referencia === 'string' && referencia.startsWith('RM')) {
+          // Extrair o número após "RM"
+          const numberPart = referencia.substring(2);
+          const number = parseInt(numberPart, 10);
+          
+          if (!isNaN(number) && number > maxRMNumber) {
+            maxRMNumber = number;
+          }
+        }
+      });
+      
+      // Garantir que sempre comece do RM1406 ou maior
+      if (maxRMNumber < 1405) {
+        maxRMNumber = 1405;
+      }
+      
+      // Gerar o próximo número da sequência
+      const nextNumber = maxRMNumber + 1;
+      return `RM${nextNumber}`; // RM1406, RM1407, etc.
+      
+    } catch (error) {
+      console.error('Erro ao buscar último REF RM:', error);
+      // Se houver erro, começar com RM1406
+      return 'RM1406';
+    }
+  }
+
+  // Gerar REFs automáticos para TODOS os produtos importados (substitui qualquer REF existente)
+  static async generateRefsForImportedProducts(products: ProductFormData[]): Promise<ProductFormData[]> {
+    try {
+      // Buscar o último REF RM no banco
+      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      
+      let maxRMNumber = 1405; // Valor mínimo: RM1405
+      
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const referencia = data.referencia;
+        
+        if (referencia && typeof referencia === 'string' && referencia.startsWith('RM')) {
+          // Extrair o número após "RM"
+          const numberPart = referencia.substring(2);
+          const number = parseInt(numberPart, 10);
+          
+          if (!isNaN(number) && number > maxRMNumber) {
+            maxRMNumber = number;
+          }
+        }
+      });
+      
+      // Garantir que sempre comece do RM1406 ou maior
+      if (maxRMNumber < 1405) {
+        maxRMNumber = 1405;
+      }
+      
+      let currentRMNumber = maxRMNumber;
+      
+      // Processar cada produto
+      const updatedProducts = products.map((product) => {
+        // SEMPRE substituir o REF pela sequência RM automática
+        currentRMNumber++;
+        product.referencia = `RM${currentRMNumber}`;
+        
+        return product;
+      });
+      
+      return updatedProducts;
+      
+    } catch (error) {
+      console.error('Erro ao gerar REFs automáticos:', error);
+      // Em caso de erro, começar com RM1406
+      let currentRMNumber = 1405;
+      return products.map((product) => {
+        currentRMNumber++;
+        product.referencia = `RM${currentRMNumber}`;
+        return product;
+      });
+    }
+  }
+
   // Buscar produto por ID
   static async getProductById(id: string): Promise<Product | null> {
     try {

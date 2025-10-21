@@ -183,6 +183,19 @@ export const BulkEditModal: React.FC<BulkEditModalProps> = ({
                     <div>
                       <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: '500', color: '#374151', marginBottom: '0.25rem' }}>
                         Referência *
+                        {product.referencia && product.referencia.startsWith('RM') && (
+                          <span style={{ 
+                            marginLeft: '0.5rem', 
+                            fontSize: '0.625rem', 
+                            backgroundColor: '#10b981', 
+                            color: 'white', 
+                            padding: '0.125rem 0.375rem', 
+                            borderRadius: '0.25rem',
+                            fontWeight: '500'
+                          }}>
+                            AUTO
+                          </span>
+                        )}
                       </label>
                       <input
                         type="text"
@@ -191,9 +204,10 @@ export const BulkEditModal: React.FC<BulkEditModalProps> = ({
                         style={{
                           width: '100%',
                           padding: '0.5rem',
-                          border: '1px solid #d1d5db',
+                          border: product.referencia && product.referencia.startsWith('RM') ? '2px solid #10b981' : '1px solid #d1d5db',
                           borderRadius: '0.25rem',
-                          fontSize: '0.875rem'
+                          fontSize: '0.875rem',
+                          backgroundColor: product.referencia && product.referencia.startsWith('RM') ? '#f0fdf4' : 'white'
                         }}
                       />
                     </div>

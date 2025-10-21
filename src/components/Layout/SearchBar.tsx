@@ -74,7 +74,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 appearance: 'none'
               }}
               onChange={(e) => onSortChange(e.target.value)}
-              defaultValue="referencia-asc"
+              defaultValue="createdAt-desc"
             >
               <option value="referencia-asc">Referência (Crescente)</option>
               <option value="referencia-desc">Referência (Decrescente)</option>
@@ -137,6 +137,23 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
         {/* Lado direito - Botões coloridos */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+
+          {/* Importar Imagens */}
+          <button
+            onClick={() => window.open('https://imagens-base.vercel.app/', '_blank')}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#10b981',
+              color: 'white',
+              borderRadius: '0.5rem',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            Importar Imagens
+          </button>
 
           {/* Cadastrar Novo Produto */}
           <button
