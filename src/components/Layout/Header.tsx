@@ -18,17 +18,17 @@ export const Header: React.FC<HeaderProps> = () => {
             />
 
             
-        <span className="text-xl font-[500] tracking-[-0.9px] text-[#ffffff] uppercase" style={{ 
+        <span className="text-lg md:text-xl font-[500] tracking-[-0.9px] text-[#ffffff] uppercase" style={{ 
   padding: '16px',
-  fontSize: '18px'
+  fontSize: '16px'
 
 }}>
   Base de Produtos
 </span>
           </div>
 
-          {/* Botões do lado direito */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Botões do lado direito - Ocultos no mobile */}
+          <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem' }}>
             {/* Botão Controle de Cotações */}
             <button 
               onClick={() => window.open('https://cotacoes25.vercel.app/', '_blank')}

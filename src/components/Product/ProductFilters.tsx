@@ -83,7 +83,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '1rem'
+      padding: '1rem',
+      animation: 'fadeIn 0.3s ease-out'
     }}>
       {/* Overlay */}
       <div 
@@ -93,9 +94,10 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(107, 114, 128, 0.75)',
+          backgroundColor: 'rgba(17, 24, 39, 0.6)',
+          backdropFilter: 'blur(4px)',
           transition: 'opacity 0.3s'
-        }} 
+        }}
         onClick={onClose} 
       />
 
@@ -103,19 +105,20 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
       <div style={{
         position: 'relative',
         backgroundColor: 'white',
-        borderRadius: '0.5rem',
+        borderRadius: '1rem',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-        width: '600px',
-        maxWidth: '90vw',
+        width: '100%',
+        maxWidth: '600px',
         maxHeight: '90vh',
         overflow: 'hidden',
         transform: 'translateY(0)',
-        transition: 'all 0.3s'
+        transition: 'all 0.3s',
+        animation: 'slideInFromBottom 0.3s ease-out'
       }}>
         {/* Header */}
         <div style={{
-          backgroundColor: 'white',
-          padding: '1.5rem',
+          background: 'linear-gradient(to right, #eff6ff, #e0e7ff)',
+          padding: '1rem 1.5rem',
           borderBottom: '1px solid #e5e7eb'
         }}>
           <div style={{
@@ -128,18 +131,19 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                width: '2.5rem',
-                height: '2.5rem',
-                backgroundColor: '#dbeafe',
-                borderRadius: '0.5rem',
-                marginRight: '0.75rem'
+                width: '3rem',
+                height: '3rem',
+                background: 'linear-gradient(to bottom right, #3b82f6, #4f46e5)',
+                borderRadius: '0.75rem',
+                boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                marginRight: '1rem'
               }}>
-                <Filter style={{ width: '1.5rem', height: '1.5rem', color: '#2563eb' }} />
+                <Filter style={{ width: '1.5rem', height: '1.5rem', color: 'white' }} />
               </div>
               <div>
                 <h3 style={{
-                  fontSize: '1.125rem',
-                  fontWeight: '500',
+                  fontSize: '1.25rem',
+                  fontWeight: '600',
                   color: '#111827',
                   margin: 0
                 }}>
@@ -148,7 +152,9 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 <p style={{
                   fontSize: '0.875rem',
                   color: '#6b7280',
-                  margin: 0
+                  margin: 0,
+                  marginTop: '0.25rem',
+                  display: window.innerWidth >= 640 ? 'block' : 'none'
                 }}>
                   Filtre produtos por critérios específicos
                 </p>
@@ -157,16 +163,22 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             <button
               onClick={onClose}
               style={{
+                padding: '0.5rem',
                 color: '#9ca3af',
                 backgroundColor: 'transparent',
                 border: 'none',
+                borderRadius: '0.5rem',
                 cursor: 'pointer',
-                padding: '0.25rem',
-                borderRadius: '0.25rem',
-                transition: 'color 0.2s'
+                transition: 'all 0.2s'
               }}
-              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#6b7280'}
-              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#9ca3af'}
+              onMouseEnter={(e) => {
+                (e.target as HTMLButtonElement).style.color = '#6b7280';
+                (e.target as HTMLButtonElement).style.backgroundColor = '#f3f4f6';
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLButtonElement).style.color = '#9ca3af';
+                (e.target as HTMLButtonElement).style.backgroundColor = 'transparent';
+              }}
             >
               <X style={{ width: '1.5rem', height: '1.5rem' }} />
             </button>
@@ -175,20 +187,19 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
         {/* Form */}
         <div style={{
+          padding: '1rem 1.5rem',
           backgroundColor: 'white',
-          padding: '1.5rem',
           maxHeight: '60vh',
           overflowY: 'auto'
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             {/* Busca por texto */}
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{
                 display: 'block',
                 fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.25rem'
+                fontWeight: '600',
+                color: '#374151'
               }}>
                 Buscar por nome ou descrição
               </label>
@@ -213,28 +224,36 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                     display: 'block',
                     width: '100%',
                     paddingLeft: '2.5rem',
-                    paddingRight: '0.75rem',
-                    paddingTop: '0.5rem',
-                    paddingBottom: '0.5rem',
+                    paddingRight: '1rem',
+                    paddingTop: '0.75rem',
+                    paddingBottom: '0.75rem',
                     border: '1px solid #d1d5db',
-                    borderRadius: '0.5rem',
+                    borderRadius: '0.75rem',
                     backgroundColor: 'white',
                     fontSize: '0.875rem',
-                    outline: 'none'
+                    outline: 'none',
+                    transition: 'all 0.2s'
                   }}
-                  placeholder="Digite para buscar..."
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#3b82f6';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = '#d1d5db';
+                    e.target.style.boxShadow = 'none';
+                  }}
+                  placeholder="Digite para buscar produtos..."
                 />
               </div>
             </div>
 
             {/* Fabricante */}
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{
                 display: 'block',
                 fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.25rem'
+                fontWeight: '600',
+                color: '#374151'
               }}>
                 Fabricante
               </label>
@@ -244,15 +263,29 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 style={{
                   display: 'block',
                   width: '100%',
-                  paddingLeft: '0.75rem',
-                  paddingRight: '0.75rem',
-                  paddingTop: '0.5rem',
-                  paddingBottom: '0.5rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '2.5rem',
+                  paddingTop: '0.75rem',
+                  paddingBottom: '0.75rem',
                   border: '1px solid #d1d5db',
-                  borderRadius: '0.5rem',
+                  borderRadius: '0.75rem',
                   backgroundColor: 'white',
                   fontSize: '0.875rem',
-                  outline: 'none'
+                  outline: 'none',
+                  transition: 'all 0.2s',
+                  appearance: 'none',
+                  backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e")',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 0.75rem center',
+                  backgroundSize: '1.25rem'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = '#3b82f6';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#d1d5db';
+                  e.target.style.boxShadow = 'none';
                 }}
               >
                 <option value="">Todos os fabricantes</option>
@@ -269,13 +302,12 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             </div>
 
             {/* Marca */}
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{
                 display: 'block',
                 fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.25rem'
+                fontWeight: '600',
+                color: '#374151'
               }}>
                 Marca
               </label>
@@ -285,15 +317,29 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                 style={{
                   display: 'block',
                   width: '100%',
-                  paddingLeft: '0.75rem',
-                  paddingRight: '0.75rem',
-                  paddingTop: '0.5rem',
-                  paddingBottom: '0.5rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '2.5rem',
+                  paddingTop: '0.75rem',
+                  paddingBottom: '0.75rem',
                   border: '1px solid #d1d5db',
-                  borderRadius: '0.5rem',
+                  borderRadius: '0.75rem',
                   backgroundColor: 'white',
                   fontSize: '0.875rem',
-                  outline: 'none'
+                  outline: 'none',
+                  transition: 'all 0.2s',
+                  appearance: 'none',
+                  backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e")',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'right 0.75rem center',
+                  backgroundSize: '1.25rem'
+                }}
+                onFocus={(e) => {
+                  e.target.style.borderColor = '#3b82f6';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.borderColor = '#d1d5db';
+                  e.target.style.boxShadow = 'none';
                 }}
               >
                 <option value="">Todas as marcas</option>
@@ -310,74 +356,123 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
             </div>
 
             {/* Faixa de preço */}
-            <div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <label style={{
                 display: 'block',
                 fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                marginBottom: '0.5rem'
+                fontWeight: '600',
+                color: '#374151'
               }}>
                 Faixa de Preço (RMB)
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-                <div>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: window.innerWidth >= 640 ? '1fr 1fr' : '1fr',
+                gap: '1rem'
+              }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label style={{
                     display: 'block',
                     fontSize: '0.75rem',
+                    fontWeight: '500',
                     color: '#6b7280',
-                    marginBottom: '0.25rem'
-                  }}>Preço mínimo</label>
-                  <input
-                    type="number"
-                    value={localFilters.minPrice || ''}
-                    onChange={(e) => handleInputChange('minPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                    step="0.01"
-                    min="0"
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      paddingLeft: '0.75rem',
-                      paddingRight: '0.75rem',
-                      paddingTop: '0.5rem',
-                      paddingBottom: '0.5rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      backgroundColor: 'white',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
-                  />
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}>
+                    Preço mínimo
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{
+                      position: 'absolute',
+                      left: '0.75rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: '#6b7280',
+                      fontSize: '0.875rem'
+                    }}>¥</span>
+                    <input
+                      type="number"
+                      value={localFilters.minPrice || ''}
+                      onChange={(e) => handleInputChange('minPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                      step="0.01"
+                      min="0"
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        paddingLeft: '2rem',
+                        paddingRight: '1rem',
+                        paddingTop: '0.75rem',
+                        paddingBottom: '0.75rem',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '0.75rem',
+                        backgroundColor: 'white',
+                        fontSize: '0.875rem',
+                        outline: 'none',
+                        transition: 'all 0.2s'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#3b82f6';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#d1d5db';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="0.00"
+                    />
+                  </div>
                 </div>
-                <div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <label style={{
                     display: 'block',
                     fontSize: '0.75rem',
+                    fontWeight: '500',
                     color: '#6b7280',
-                    marginBottom: '0.25rem'
-                  }}>Preço máximo</label>
-                  <input
-                    type="number"
-                    value={localFilters.maxPrice || ''}
-                    onChange={(e) => handleInputChange('maxPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                    step="0.01"
-                    min="0"
-                    style={{
-                      display: 'block',
-                      width: '100%',
-                      paddingLeft: '0.75rem',
-                      paddingRight: '0.75rem',
-                      paddingTop: '0.5rem',
-                      paddingBottom: '0.5rem',
-                      border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      backgroundColor: 'white',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
-                  />
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}>
+                    Preço máximo
+                  </label>
+                  <div style={{ position: 'relative' }}>
+                    <span style={{
+                      position: 'absolute',
+                      left: '0.75rem',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: '#6b7280',
+                      fontSize: '0.875rem'
+                    }}>¥</span>
+                    <input
+                      type="number"
+                      value={localFilters.maxPrice || ''}
+                      onChange={(e) => handleInputChange('maxPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
+                      step="0.01"
+                      min="0"
+                      style={{
+                        display: 'block',
+                        width: '100%',
+                        paddingLeft: '2rem',
+                        paddingRight: '1rem',
+                        paddingTop: '0.75rem',
+                        paddingBottom: '0.75rem',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '0.75rem',
+                        backgroundColor: 'white',
+                        fontSize: '0.875rem',
+                        outline: 'none',
+                        transition: 'all 0.2s'
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = '#3b82f6';
+                        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = '#d1d5db';
+                        e.target.style.boxShadow = 'none';
+                      }}
+                      placeholder="0.00"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -386,68 +481,113 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
 
         {/* Footer */}
         <div style={{
-          backgroundColor: '#f9fafb',
-          padding: '1.5rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
+          background: 'linear-gradient(to right, #f9fafb, #eff6ff)',
+          padding: '1rem 1.5rem',
+          borderTop: '1px solid #e5e7eb'
         }}>
-          <div>
-            {hasActiveFilters && (
+          <div style={{
+            display: 'flex',
+            flexDirection: window.innerWidth >= 640 ? 'row' : 'column',
+            justifyContent: 'space-between',
+            alignItems: window.innerWidth >= 640 ? 'center' : 'flex-start',
+            gap: '1rem'
+          }}>
+            <div>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    padding: '0.5rem 0.75rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '500',
+                    color: '#6b7280',
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLButtonElement).style.color = '#374151';
+                    (e.target as HTMLButtonElement).style.backgroundColor = 'white';
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLButtonElement).style.color = '#6b7280';
+                    (e.target as HTMLButtonElement).style.backgroundColor = 'transparent';
+                  }}
+                >
+                  <svg style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Limpar todos os filtros
+                </button>
+              )}
+            </div>
+            <div style={{
+              display: 'flex',
+              flexDirection: window.innerWidth >= 640 ? 'row' : 'column',
+              gap: '0.75rem',
+              width: window.innerWidth >= 640 ? 'auto' : '100%'
+            }}>
               <button
-                onClick={clearFilters}
+                onClick={onClose}
                 style={{
+                  padding: '0.75rem 1.5rem',
                   fontSize: '0.875rem',
-                  color: '#6b7280',
-                  backgroundColor: 'transparent',
-                  border: 'none',
+                  fontWeight: '600',
+                  color: '#374151',
+                  backgroundColor: 'white',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '0.75rem',
                   cursor: 'pointer',
-                  transition: 'color 0.2s'
+                  transition: 'all 0.2s',
+                  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                  width: window.innerWidth >= 640 ? 'auto' : '100%'
                 }}
-                onMouseEnter={(e) => (e.target as HTMLButtonElement).style.color = '#374151'}
-                onMouseLeave={(e) => (e.target as HTMLButtonElement).style.color = '#6b7280'}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLButtonElement).style.backgroundColor = '#f9fafb';
+                  (e.target as HTMLButtonElement).style.borderColor = '#9ca3af';
+                  (e.target as HTMLButtonElement).style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLButtonElement).style.backgroundColor = 'white';
+                  (e.target as HTMLButtonElement).style.borderColor = '#d1d5db';
+                  (e.target as HTMLButtonElement).style.boxShadow = '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+                }}
               >
-                Limpar todos os filtros
+                Cancelar
               </button>
-            )}
-          </div>
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <button
-              onClick={onClose}
-              style={{
-                padding: '0.5rem 1rem',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: '#374151',
-                backgroundColor: 'white',
-                border: '1px solid #d1d5db',
-                borderRadius: '0.5rem',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s'
-              }}
-              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#f9fafb'}
-              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = 'white'}
-            >
-              Cancelar
-            </button>
-            <button
-              onClick={applyFilters}
-              style={{
-                padding: '0.5rem 1rem',
-                fontSize: '0.875rem',
-                fontWeight: '500',
-                color: 'white',
-                backgroundColor: '#2563eb',
-                border: '1px solid transparent',
-                borderRadius: '0.5rem',
-                cursor: 'pointer',
-                transition: 'background-color 0.2s'
-              }}
-              onMouseEnter={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#1d4ed8'}
-              onMouseLeave={(e) => (e.target as HTMLButtonElement).style.backgroundColor = '#2563eb'}
-            >
-              Aplicar Filtros
-            </button>
+              <button
+                onClick={applyFilters}
+                style={{
+                  padding: '0.75rem 1.5rem',
+                  fontSize: '0.875rem',
+                  fontWeight: '600',
+                  color: 'white',
+                  background: 'linear-gradient(to right, #2563eb, #4f46e5)',
+                  border: '1px solid transparent',
+                  borderRadius: '0.75rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                  width: window.innerWidth >= 640 ? 'auto' : '100%'
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLButtonElement).style.background = 'linear-gradient(to right, #1d4ed8, #3730a3)';
+                  (e.target as HTMLButtonElement).style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.1)';
+                  (e.target as HTMLButtonElement).style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLButtonElement).style.background = 'linear-gradient(to right, #2563eb, #4f46e5)';
+                  (e.target as HTMLButtonElement).style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1)';
+                  (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
+                }}
+              >
+                Aplicar Filtros
+              </button>
+            </div>
           </div>
         </div>
       </div>

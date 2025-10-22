@@ -46,7 +46,13 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
       padding: '1rem',
       marginBottom: '1rem'
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: '1rem', alignItems: 'center' }}>
+      {/* Layout Desktop */}
+      <div style={{ 
+        display: window.innerWidth >= 768 ? 'grid' : 'none', 
+        gridTemplateColumns: 'auto 1fr auto', 
+        gap: '1rem', 
+        alignItems: 'center' 
+      }}>
         {/* Coluna 1: Foto */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {/* Área da imagem */}
@@ -251,6 +257,163 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
               }}
             >
               <Eye style={{ width: '0.75rem', height: '0.75rem', marginRight: '0.25rem' }} />
+              +info
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Layout Mobile */}
+      <div style={{ 
+        display: window.innerWidth < 768 ? 'flex' : 'none', 
+        gap: '0.75rem',
+        alignItems: 'flex-start'
+      }}>
+        {/* Coluna 1: Foto (40%) */}
+        <div style={{ width: '40%', display: 'flex', justifyContent: 'center' }}>
+          <div style={{
+            width: '100%',
+            aspectRatio: '1',
+            backgroundColor: '#f9fafb',
+            borderRadius: '0.5rem',
+            border: '2px solid #e5e7eb',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            {productData.referencia ? (
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                <img
+                  src={`https://nyc3.digitaloceanspaces.com/moribr/base-fotos/${productData.referencia}.jpg`}
+                  alt={`Imagem do produto ${productData.referencia}`}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => setShowImageModal(true)}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const fallback = target.parentElement?.nextElementSibling as HTMLElement;
+                    if (fallback) {
+                      fallback.style.display = 'flex';
+                    }
+                  }}
+                />
+                <button
+                  onClick={() => setShowImageModal(true)}
+                  style={{
+                    position: 'absolute',
+                    top: '0.25rem',
+                    right: '0.25rem',
+                    padding: '0.25rem',
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '0.25rem',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <ZoomIn style={{ width: '0.75rem', height: '0.75rem' }} />
+                </button>
+              </div>
+            ) : null}
+            
+            <div style={{
+              width: '100%',
+              height: '100%',
+              display: productData.referencia ? 'none' : 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              color: '#9ca3af',
+              fontSize: '0.75rem',
+              textAlign: 'center',
+              padding: '0.5rem'
+            }}>
+              <div style={{
+                width: '2rem',
+                height: '2rem',
+                backgroundColor: '#e5e7eb',
+                borderRadius: '0.25rem',
+                marginBottom: '0.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21,15 16,10 5,21"/>
+                </svg>
+              </div>
+              <span>Sem imagem</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Coluna 2: Informações (60%) */}
+        <div style={{ width: '60%', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {/* MARCA | REF */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontSize: '0.75rem', color: '#6b7280', fontWeight: '500' }}>{productData.marca}</span>
+            <span style={{ fontSize: '0.75rem', color: '#6b7280' }}>|</span>
+            <span style={{ fontSize: '0.875rem', fontWeight: 'bold', color: '#111827' }}>
+              {productData.referencia}
+            </span>
+          </div>
+
+          {/* NOME */}
+          <div>
+            <div style={{ 
+              fontSize: '0.875rem', 
+              color: '#111827', 
+              lineHeight: '1.3',
+              fontWeight: '500'
+            }}>
+              {productData.nome}
+            </div>
+          </div>
+
+          {/* U.PRICE */}
+          <div>
+            <div style={{ 
+              fontSize: '1rem', 
+              fontWeight: 'bold', 
+              color: '#059669'
+            }}>
+              {formatCurrency(productData.preco)}
+            </div>
+          </div>
+
+          {/* BOTÃO +INFO */}
+          <div style={{ marginTop: '0.25rem' }}>
+            <button
+              onClick={() => setShowDetailsModal(true)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '0.5rem 1rem',
+                backgroundColor: '#0175a62a',
+                color: '#374151',
+                borderRadius: '0.375rem',
+                fontSize: '0.75rem',
+                fontWeight: '600',
+                border: '1px solid #0175a6',
+                cursor: 'pointer',
+                width: '100%'
+              }}
+            >
+              <Eye style={{ width: '0.875rem', height: '0.875rem', marginRight: '0.375rem' }} />
               +info
             </button>
           </div>
