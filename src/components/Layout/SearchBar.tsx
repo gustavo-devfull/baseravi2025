@@ -13,8 +13,6 @@ interface SearchBarProps {
     search?: string;
     fabrica?: string;
     marca?: string;
-    minPrice?: number;
-    maxPrice?: number;
   };
 }
 
@@ -40,11 +38,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }
     if (activeFilters.marca) {
       filters.push(`Marca: ${activeFilters.marca}`);
-    }
-    if (activeFilters.minPrice || activeFilters.maxPrice) {
-      const minPrice = activeFilters.minPrice ? `CN¥ ${activeFilters.minPrice}` : 'CN¥ 0';
-      const maxPrice = activeFilters.maxPrice ? `CN¥ ${activeFilters.maxPrice}` : 'CN¥ ∞';
-      filters.push(`Preço: ${minPrice} - ${maxPrice}`);
     }
     
     return filters.join(' • ');

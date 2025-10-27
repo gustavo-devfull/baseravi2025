@@ -41,6 +41,4 @@ export interface ProductFilters {
   search?: string;
   fabrica?: string;
   marca?: string;
-  minPrice?: number;
-  maxPrice?: number;
 }

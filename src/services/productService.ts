@@ -156,14 +156,6 @@ export class ProductService {
         );
       }
 
-      // Filtros de preço
-      if (filters?.minPrice) {
-        filteredProducts = filteredProducts.filter(p => p.unitPriceRmb >= filters.minPrice!);
-      }
-      if (filters?.maxPrice) {
-        filteredProducts = filteredProducts.filter(p => p.unitPriceRmb <= filters.maxPrice!);
-      }
-
       return filteredProducts;
     } catch (error) {
       console.error('Erro ao buscar produtos:', error);

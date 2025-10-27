@@ -65,6 +65,13 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
     onFiltersChange(emptyFilters);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyFilters();
+    }
+  };
+
   const hasActiveFilters = Object.values(filters).some(value => 
     value !== undefined && value !== ''
   );
@@ -113,7 +120,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
         overflow: 'hidden',
         transform: 'translateY(0)',
         transition: 'all 0.3s',
-        animation: 'slideInFromBottom 0.3s ease-out'
+        animation: 'slideInFromBottom 0.3s ease-out',
+        boxSizing: 'border-box'
       }}>
         {/* Header */}
         <div style={{
@@ -192,7 +200,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
           maxHeight: '60vh',
           overflowY: 'auto'
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '100%' }}>
             {/* Busca por texto */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               <label style={{
@@ -220,6 +228,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   type="text"
                   value={localFilters.search || ''}
                   onChange={(e) => handleInputChange('search', e.target.value)}
+                  onKeyDown={handleKeyDown}
                   style={{
                     display: 'block',
                     width: '100%',
@@ -232,7 +241,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                     backgroundColor: 'white',
                     fontSize: '0.875rem',
                     outline: 'none',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.2s',
+                    boxSizing: 'border-box'
                   }}
                   onFocus={(e) => {
                     e.target.style.borderColor = '#3b82f6';
@@ -242,7 +252,7 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                     e.target.style.borderColor = '#d1d5db';
                     e.target.style.boxShadow = 'none';
                   }}
-                  placeholder="Digite para buscar produtos..."
+                  placeholder="Digite para buscar produtos... (Enter para aplicar)"
                 />
               </div>
             </div>
@@ -277,7 +287,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e")',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'right 0.75rem center',
-                  backgroundSize: '1.25rem'
+                  backgroundSize: '1.25rem',
+                  boxSizing: 'border-box'
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = '#3b82f6';
@@ -331,7 +342,8 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%236b7280\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'m6 8 4 4 4-4\'/%3e%3c/svg%3e")',
                   backgroundRepeat: 'no-repeat',
                   backgroundPosition: 'right 0.75rem center',
-                  backgroundSize: '1.25rem'
+                  backgroundSize: '1.25rem',
+                  boxSizing: 'border-box'
                 }}
                 onFocus={(e) => {
                   e.target.style.borderColor = '#3b82f6';
@@ -353,128 +365,6 @@ export const ProductFilters: React.FC<ProductFiltersProps> = ({
                   ))
                 )}
               </select>
-            </div>
-
-            {/* Faixa de preço */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <label style={{
-                display: 'block',
-                fontSize: '0.875rem',
-                fontWeight: '600',
-                color: '#374151'
-              }}>
-                Faixa de Preço (RMB)
-              </label>
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: window.innerWidth >= 640 ? '1fr 1fr' : '1fr',
-                gap: '1rem'
-              }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.75rem',
-                    fontWeight: '500',
-                    color: '#6b7280',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em'
-                  }}>
-                    Preço mínimo
-                  </label>
-                  <div style={{ position: 'relative' }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0.75rem',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      color: '#6b7280',
-                      fontSize: '0.875rem'
-                    }}>¥</span>
-                    <input
-                      type="number"
-                      value={localFilters.minPrice || ''}
-                      onChange={(e) => handleInputChange('minPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                      step="0.01"
-                      min="0"
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        paddingLeft: '2rem',
-                        paddingRight: '1rem',
-                        paddingTop: '0.75rem',
-                        paddingBottom: '0.75rem',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '0.75rem',
-                        backgroundColor: 'white',
-                        fontSize: '0.875rem',
-                        outline: 'none',
-                        transition: 'all 0.2s'
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = '#3b82f6';
-                        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#d1d5db';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="0.00"
-                    />
-                  </div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <label style={{
-                    display: 'block',
-                    fontSize: '0.75rem',
-                    fontWeight: '500',
-                    color: '#6b7280',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em'
-                  }}>
-                    Preço máximo
-                  </label>
-                  <div style={{ position: 'relative' }}>
-                    <span style={{
-                      position: 'absolute',
-                      left: '0.75rem',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      color: '#6b7280',
-                      fontSize: '0.875rem'
-                    }}>¥</span>
-                    <input
-                      type="number"
-                      value={localFilters.maxPrice || ''}
-                      onChange={(e) => handleInputChange('maxPrice', e.target.value ? parseFloat(e.target.value) : undefined)}
-                      step="0.01"
-                      min="0"
-                      style={{
-                        display: 'block',
-                        width: '100%',
-                        paddingLeft: '2rem',
-                        paddingRight: '1rem',
-                        paddingTop: '0.75rem',
-                        paddingBottom: '0.75rem',
-                        border: '1px solid #d1d5db',
-                        borderRadius: '0.75rem',
-                        backgroundColor: 'white',
-                        fontSize: '0.875rem',
-                        outline: 'none',
-                        transition: 'all 0.2s'
-                      }}
-                      onFocus={(e) => {
-                        e.target.style.borderColor = '#3b82f6';
-                        e.target.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
-                      }}
-                      onBlur={(e) => {
-                        e.target.style.borderColor = '#d1d5db';
-                        e.target.style.boxShadow = 'none';
-                      }}
-                      placeholder="0.00"
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>

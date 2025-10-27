@@ -14,8 +14,6 @@ interface LayoutProps {
     search?: string;
     fabrica?: string;
     marca?: string;
-    minPrice?: number;
-    maxPrice?: number;
   };
 }
 
