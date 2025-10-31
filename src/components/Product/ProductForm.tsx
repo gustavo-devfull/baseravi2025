@@ -168,19 +168,21 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       {/* Modal */}
       <div style={{
         backgroundColor: 'white',
-        borderRadius: '0.5rem',
+        borderRadius: window.innerWidth < 768 ? '0.5rem 0.5rem 0 0' : '0.5rem',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
         width: '100%',
-        maxWidth: '95vw',
-        maxHeight: '90vh',
+        maxWidth: window.innerWidth < 768 ? '100vw' : '95vw',
+        maxHeight: window.innerWidth < 768 ? '100vh' : '90vh',
+        height: window.innerWidth < 768 ? '100vh' : 'auto',
         overflow: 'hidden',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        marginTop: window.innerWidth < 768 ? 'auto' : '0'
       }}>
         {/* Header */}
         <div style={{
           backgroundColor: 'white',
-          padding: '1.5rem',
+          padding: window.innerWidth < 768 ? '1rem' : '1.5rem',
           borderBottom: '1px solid #e5e7eb',
           display: 'flex',
           alignItems: 'center',
@@ -225,7 +227,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: '1.5rem' }}>
+          <div style={{ 
+            flex: 1, 
+            overflowY: 'auto', 
+            overflowX: 'hidden', 
+            padding: window.innerWidth < 768 ? '1rem' : '1.5rem',
+            boxSizing: 'border-box'
+          }}>
             {/* Seção 1: Informações Básicas */}
             <div style={{ marginBottom: '2rem' }}>
               <h3 style={{
@@ -238,7 +246,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               }}>
                 Informações Básicas
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr 1fr', 
+                gap: '0.75rem' 
+              }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -260,7 +272,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       border: `1px solid ${errors.name ? '#ef4444' : '#d1d5db'}`,
                       borderRadius: '0.5rem',
                       fontSize: '0.875rem',
-                      outline: 'none'
+                      outline: 'none',
+                      boxSizing: 'border-box'
                     }}
                     placeholder="Nome do produto"
                   />
@@ -286,11 +299,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: `1px solid ${errors.referencia ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Referência do produto"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Referência do produto"
                   />
                   {errors.referencia && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.referencia}</p>}
                 </div>
@@ -314,11 +328,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: `1px solid ${errors.fabrica ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome do fabricante"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Nome do fabricante"
                   />
                   {errors.fabrica && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.fabrica}</p>}
                 </div>
@@ -344,7 +359,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       border: '1px solid #d1d5db',
                       borderRadius: '0.5rem',
                       fontSize: '0.875rem',
-                      outline: 'none'
+                      outline: 'none',
+                      boxSizing: 'border-box'
                     }}
                     placeholder="Marca do produto"
                   />
@@ -369,11 +385,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Número do item"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Número do item"
                   />
                 </div>
 
@@ -396,11 +413,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Linha de cotações"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Linha de cotações"
                   />
                 </div>
               </div>
@@ -426,7 +444,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     borderRadius: '0.5rem',
                     fontSize: '0.875rem',
                     outline: 'none',
-                    resize: 'vertical'
+                    resize: 'vertical',
+                    boxSizing: 'border-box'
                   }}
                   placeholder="Descrição do produto"
                 />
@@ -445,7 +464,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               }}>
                 Preços e Quantidades
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr 1fr', 
+                gap: '0.75rem' 
+              }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -465,11 +488,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: `1px solid ${errors.unitPriceRmb ? '#ef4444' : '#d1d5db'}`,
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0.00"
                   />
                   {errors.unitPriceRmb && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.25rem', margin: 0 }}>{errors.unitPriceRmb}</p>}
                 </div>
@@ -493,11 +517,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0.00"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0.00"
                   />
                 </div>
 
@@ -520,11 +545,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -547,11 +573,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -574,11 +601,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -601,11 +629,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Unidade"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Unidade"
                   />
                 </div>
               </div>
@@ -623,7 +652,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               }}>
                 Dimensões e Peso
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr 1fr', 
+                gap: '0.75rem' 
+              }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -643,11 +676,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -670,11 +704,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -697,11 +732,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -724,11 +760,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -751,11 +788,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -778,11 +816,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
 
@@ -805,11 +844,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="0"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="0"
                   />
                 </div>
               </div>
@@ -827,7 +867,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               }}>
                 Campos Adicionais
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr 1fr', 
+                gap: '0.75rem' 
+              }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -847,11 +891,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Código RAVI"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Código RAVI"
                   />
                 </div>
 
@@ -874,11 +919,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Código EAN"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Código EAN"
                   />
                 </div>
 
@@ -901,11 +947,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Código DUN"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Código DUN"
                   />
                 </div>
 
@@ -928,11 +975,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Código NCM"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Código NCM"
                   />
                 </div>
 
@@ -955,11 +1003,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Código CEST"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Código CEST"
                   />
                 </div>
 
@@ -982,11 +1031,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome em inglês"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Nome em inglês"
                   />
                 </div>
 
@@ -1009,11 +1059,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome DI NB"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Nome DI NB"
                   />
                 </div>
 
@@ -1036,11 +1087,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                       width: '100%',
                       padding: '0.5rem 0.75rem',
                       border: '1px solid #d1d5db',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      outline: 'none'
-                    }}
-                    placeholder="Nome RAVI Profit"
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                  placeholder="Nome RAVI Profit"
                   />
                 </div>
               </div>
@@ -1058,7 +1110,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               }}>
                 Observações
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : '1fr 1fr 1fr', 
+                gap: '0.75rem' 
+              }}>
                 <div>
                   <label style={{
                     display: 'block',
@@ -1149,9 +1205,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           {/* Footer */}
           <div style={{
             backgroundColor: '#f9fafb',
-            padding: '1.5rem',
+            padding: window.innerWidth < 768 ? '1rem' : '1.5rem',
             borderTop: '1px solid #e5e7eb',
             display: 'flex',
+            flexDirection: window.innerWidth < 768 ? 'column' : 'row',
             justifyContent: 'flex-end',
             gap: '0.75rem'
           }}>
@@ -1166,7 +1223,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 fontSize: '0.875rem',
                 fontWeight: '500',
                 border: '1px solid #d1d5db',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                width: window.innerWidth < 768 ? '100%' : 'auto'
               }}
             >
               Cancelar
@@ -1177,6 +1235,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               style={{
                 display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 padding: '0.75rem 1.5rem',
                 backgroundColor: isSubmitting ? '#9ca3af' : '#2563eb',
                 color: 'white',
@@ -1184,7 +1243,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 fontSize: '0.875rem',
                 fontWeight: '500',
                 border: 'none',
-                cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                width: window.innerWidth < 768 ? '100%' : 'auto'
               }}
             >
               <Save style={{ width: '1rem', height: '1rem', marginRight: '0.5rem' }} />

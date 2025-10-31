@@ -37,6 +37,8 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
     preco: product.unitPriceRmb || 12.00
   };
 
+  const isActive = product.active !== false;
+
   return (
     <div style={{
       backgroundColor: 'white',
@@ -44,14 +46,32 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
       boxShadow: '0 15px 15px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
       border: '1px solid #e5e7ebaf',
       padding: '1rem',
-      marginBottom: '1rem'
+      marginBottom: '1rem',
+      position: 'relative',
+      opacity: isActive ? 1 : 0.5
     }}>
+      {/* Overlay para produtos desativados */}
+      {!isActive && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0, 0, 0, 0.5)',
+          borderRadius: '0.5rem',
+          pointerEvents: 'none',
+          zIndex: 1
+        }} />
+      )}
       {/* Layout Desktop */}
       <div style={{ 
         display: window.innerWidth >= 768 ? 'grid' : 'none', 
         gridTemplateColumns: 'auto 1fr auto', 
         gap: '1rem', 
-        alignItems: 'center' 
+        alignItems: 'center',
+        position: 'relative',
+        zIndex: 2
       }}>
         {/* Coluna 1: Foto */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -267,7 +287,9 @@ export const ProductCardNew: React.FC<ProductCardNewProps> = ({
       <div style={{ 
         display: window.innerWidth < 768 ? 'flex' : 'none', 
         gap: '0.75rem',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        position: 'relative',
+        zIndex: 2
       }}>
         {/* Coluna 1: Foto (40%) */}
         <div style={{ width: '40%', display: 'flex', justifyContent: 'center' }}>

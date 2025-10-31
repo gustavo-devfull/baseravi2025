@@ -15,6 +15,7 @@ interface LayoutProps {
     fabrica?: string;
     marca?: string;
   };
+  onNavigateToAllProducts?: () => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ 
@@ -25,7 +26,8 @@ export const Layout: React.FC<LayoutProps> = ({
   onSortChange,
   onImportSpreadsheet,
   hasActiveFilters = false,
-  activeFilters = {}
+  activeFilters = {},
+  onNavigateToAllProducts
 }) => {
   const handleExportSpreadsheet = () => {
     console.log('Exportar planilha');
@@ -35,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <Header />
+      <Header onNavigateToAllProducts={onNavigateToAllProducts} />
 
       {/* Barra de busca e filtros */}
       <SearchBar

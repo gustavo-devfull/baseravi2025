@@ -31,6 +31,7 @@ export interface Product {
   cest: string;
   valorInvoiceUsd: number;
   obsPedido: string;
+  active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

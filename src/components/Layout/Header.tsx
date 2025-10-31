@@ -1,9 +1,11 @@
 import React from 'react';
 import RaviLogo from '../../assets/RAVI-LOGO.svg';
 
-interface HeaderProps {}
+interface HeaderProps {
+  onNavigateToAllProducts?: () => void;
+}
 
-export const Header: React.FC<HeaderProps> = () => {
+export const Header: React.FC<HeaderProps> = ({ onNavigateToAllProducts }) => {
   return (
     <header style={{ backgroundColor: '#0175a6', borderBottom: '1px solid #e5e7eb' }}>
       <div style={{ maxWidth: '1216px', margin: '0 auto', padding: '0 1.5rem' }}>
@@ -27,8 +29,46 @@ export const Header: React.FC<HeaderProps> = () => {
 </span>
           </div>
 
-          {/* Botões do lado direito - Ocultos no mobile */}
-          <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem' }}>
+          {/* Botões do lado direito */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {/* Botão Todos os Produtos */}
+            <button 
+              onClick={onNavigateToAllProducts || (() => {})}
+              disabled={!onNavigateToAllProducts}
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                padding: '0.5rem 1rem', 
+                backgroundColor: onNavigateToAllProducts ? 'rgba(255, 255, 255, 0.25)' : 'rgba(255, 255, 255, 0.1)', 
+                color: 'white', 
+                borderRadius: '0.5rem', 
+                fontSize: '0.875rem', 
+                fontWeight: '500',
+                border: '1px solid rgba(255, 255, 255, 0.4)',
+                cursor: onNavigateToAllProducts ? 'pointer' : 'not-allowed',
+                transition: 'all 0.2s',
+                whiteSpace: 'nowrap',
+                opacity: onNavigateToAllProducts ? 1 : 0.6
+              }}
+              onMouseEnter={(e) => {
+                if (onNavigateToAllProducts) {
+                  (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.35)';
+                  (e.target as HTMLButtonElement).style.borderColor = 'rgba(255, 255, 255, 0.6)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (onNavigateToAllProducts) {
+                  (e.target as HTMLButtonElement).style.backgroundColor = 'rgba(255, 255, 255, 0.25)';
+                  (e.target as HTMLButtonElement).style.borderColor = 'rgba(255, 255, 255, 0.4)';
+                }
+              }}
+            >
+              Todos os Produtos
+            </button>
+            
+            {/* Botões que ficam ocultos no mobile */}
+            <div className="hidden md:flex" style={{ alignItems: 'center', gap: '0.75rem' }}>
+            
             {/* Botão Controle de Cotações */}
             <button 
               onClick={() => window.open('https://cotacoes25.vercel.app/', '_blank')}
@@ -87,6 +127,7 @@ export const Header: React.FC<HeaderProps> = () => {
             }}>
               Sair
             </button>
+            </div>
           </div>
         </div>
       </div>

@@ -12,7 +12,11 @@ import { ImportModal } from '../Import/ImportModal';
 import { BulkEditModal } from '../Import/BulkEditModal';
 import { AlertCircle } from 'lucide-react';
 
-export const Dashboard: React.FC = () => {
+interface DashboardProps {
+  onNavigateToAllProducts?: () => void;
+}
+
+export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToAllProducts }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasProductsInDB, setHasProductsInDB] = useState<boolean | null>(null);
@@ -132,8 +136,8 @@ export const Dashboard: React.FC = () => {
   const handleDeactivateProduct = async (productId: string) => {
     if (window.confirm('Tem certeza que deseja desativar este produto?')) {
       try {
-        // Implementar lógica de desativação
-        console.log('Desativar produto:', productId);
+        await ProductService.updateProduct(productId, { active: false });
+        await loadProducts();
       } catch (error) {
         setError('Erro ao desativar produto');
         console.error('Erro ao desativar produto:', error);
@@ -241,6 +245,7 @@ export const Dashboard: React.FC = () => {
         onImportSpreadsheet={handleImportSpreadsheet}
         hasActiveFilters={Object.values(filters).some(value => value !== undefined && value !== '')}
         activeFilters={filters}
+        onNavigateToAllProducts={onNavigateToAllProducts}
       >
         <div className="space-y-6">
         {/* Erro */}
