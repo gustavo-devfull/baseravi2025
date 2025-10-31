@@ -83,8 +83,8 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
               <h3 style={{ fontSize: '1.125rem', fontWeight: '500', color: '#111827', margin: 0 }}>
                 Detalhes do Produto
               </h3>
-              <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0 }}>
-                {product.name} - {product.referencia}
+              <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: 0, marginTop: '0.25rem' }}>
+                {product.nomeRaviProfit || 'N/A'} | {product.referencia || 'N/A'}
               </p>
             </div>
           </div>
@@ -182,33 +182,41 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                   Informações Básicas
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Nome:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.name || 'N/A'}</div>
+                  {/* Primeira linha: Referência | Nome */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Referência:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.referencia || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Nome:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.name || 'N/A'}</div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Descrição:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.description || 'N/A'}</div>
+                  
+                  {/* Segunda linha: Marca | Fabricante | Item No */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Marca:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.marca || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Fabricante:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.fabrica || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Item No:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.itemNo || 'N/A'}</div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Referência:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.referencia || 'N/A'}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Fabricante:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.fabrica || 'N/A'}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Marca:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.marca || 'N/A'}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Item No:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.itemNo || 'N/A'}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Linha Cotações:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.linhaCotacoes || 'N/A'}</div>
+                  
+                  {/* Terceira linha: Descrição */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap', marginTop: '0.125rem' }}>Descrição:</span>
+                    <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5', flex: 1 }}>{product.description || 'N/A'}</div>
                   </div>
                 </div>
               </div>
@@ -222,60 +230,79 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
                   Preços e Quantidades
                 </h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Preço Unitário RMB:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{formatCurrency(product.unitPriceRmb || 0)}</div>
+                  {/* Primeira linha: Preço Unitário RMB | Valor Invoice USD */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Preço Unitário RMB:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{formatCurrency(product.unitPriceRmb || 0)}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Valor Invoice USD:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{formatCurrencyUSD(product.valorInvoiceUsd || 0)}</div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Valor Invoice USD:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{formatCurrencyUSD(product.valorInvoiceUsd || 0)}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>MOQ:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.moq || 0}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Unidades por CTN:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.unitCtn || 0}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Qt Min Venda:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.qtMinVenda || 0}</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: '500', color: '#6b7280', marginBottom: '0.25rem' }}>Unidade:</span>
-                    <div style={{ fontSize: '0.875rem', color: '#111827', lineHeight: '1.5' }}>{product.unit || 'N/A'}</div>
+                  
+                  {/* Segunda linha: MOQ | Unidades por CTN | Qt Min Venda | Unidade */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>MOQ:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.moq || 0}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Unidades por CTN:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.unitCtn || 0}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Qt Min Venda:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.qtMinVenda || 0}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Unidade:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.unit || 'N/A'}</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Dimensões */}
-              <div className="mb-6">
-                <h4 className="text-sm font-medium text-gray-900 mb-4">
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                   Dimensões e Peso
                 </h4>
-                <div className="space-y-3">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Dimensões (L×W×H):</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {/* Primeira linha: Dimensões (L×W×H) */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Dimensões (L×W×H):</span>
+                    <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>
                       {product.l || 0} × {product.w || 0} × {product.h || 0} cm
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">CBM:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.cbm || 0} m³</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Peso Bruto:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.gw || 0} kg</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Peso Líquido:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.nw || 0} kg</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Peso Unitário:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.pesoUnitario || 0} kg</div>
+                  
+                  {/* Segunda linha: CBM | Peso Bruto | Peso Líquido | Peso Unitário */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>CBM:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.cbm || 0} m³</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Peso Bruto:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.gw || 0} kg</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Peso Líquido:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.nw || 0} kg</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Peso Unitário:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.pesoUnitario || 0} kg</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -284,51 +311,61 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
             {/* Coluna 3: Códigos e Nomes */}
             <div>
               {/* Códigos */}
-              <div className="mb-6">
-                <h4 className="text-sm font-medium text-gray-900 mb-4">
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                   Códigos
                 </h4>
-                <div className="space-y-3">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Código Ravi:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.codRavi || 'N/A'}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {/* Primeira linha: Código Ravi | NCM | CEST */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Código Ravi:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.codRavi || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>NCM:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.ncm || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>CEST:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.cest || 'N/A'}</div>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">EAN:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.ean || 'N/A'}</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">DUN:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.dun || 'N/A'}</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">NCM:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.ncm || 'N/A'}</div>
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">CEST:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.cest || 'N/A'}</div>
+                  
+                  {/* Segunda linha: EAN | DUN */}
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>EAN:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.ean || 'N/A'}</div>
+                    </div>
+                    <span style={{ color: '#d1d5db' }}>|</span>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                      <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>DUN:</span>
+                      <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.dun || 'N/A'}</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Nomes */}
-              <div className="mb-6">
-                <h4 className="text-sm font-medium text-gray-900 mb-4">
+              <div style={{ marginBottom: '1.5rem' }}>
+                <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                   Nomes
                 </h4>
-                <div className="space-y-3">
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Nome Invoice EN:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.nomeInvoiceEn || 'N/A'}</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Nome Invoice EN:</span>
+                    <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.nomeInvoiceEn || 'N/A'}</div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Nome DI NB:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.nomeDiNb || 'N/A'}</div>
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Nome DI NB:</span>
+                    <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.nomeDiNb || 'N/A'}</div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-xs font-medium text-gray-500 mb-1">Nome RAVI Profit:</span>
-                    <div className="text-sm text-gray-900 leading-relaxed">{product.nomeRaviProfit || 'N/A'}</div>
+                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Nome RAVI Profit:</span>
+                    <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.nomeRaviProfit || 'N/A'}</div>
                   </div>
                 </div>
               </div>
@@ -336,26 +373,26 @@ export const ProductDetailsModal: React.FC<ProductDetailsModalProps> = ({
               {/* Observações */}
               {(product.obs || product.remark || product.obsPedido) && (
                 <div>
-                  <h4 className="text-sm font-medium text-gray-900 mb-4">
+                  <h4 style={{ fontSize: '0.875rem', fontWeight: '500', color: '#111827', marginBottom: '1rem' }}>
                     Observações
                   </h4>
-                  <div className="space-y-3">
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {product.obs && (
-                      <div className="flex flex-col">
-                        <span className="text-xs font-medium text-gray-500 mb-1">Observações Gerais:</span>
-                        <div className="text-sm text-gray-900 leading-relaxed">{product.obs}</div>
+                      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Observações Gerais:</span>
+                        <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.obs}</div>
                       </div>
                     )}
                     {product.remark && (
-                      <div className="flex flex-col">
-                        <span className="text-xs font-medium text-gray-500 mb-1">Remark:</span>
-                        <div className="text-sm text-gray-900 leading-relaxed">{product.remark}</div>
+                      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Remark:</span>
+                        <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.remark}</div>
                       </div>
                     )}
                     {product.obsPedido && (
-                      <div className="flex flex-col">
-                        <span className="text-xs font-medium text-gray-500 mb-1">Observações do Pedido:</span>
-                        <div className="text-sm text-gray-900 leading-relaxed">{product.obsPedido}</div>
+                      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '500', color: '#0175a6', whiteSpace: 'nowrap' }}>Observações do Pedido:</span>
+                        <div style={{ fontSize: '16px', color: 'rgba(0, 0, 0, 0.7)', lineHeight: '1.5' }}>{product.obsPedido}</div>
                       </div>
                     )}
                   </div>
