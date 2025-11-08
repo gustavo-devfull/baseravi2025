@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { Product, ProductFormData } from '../../types/Product';
 import { ProductService } from '../../services/productService';
+import { MainHeader } from '../Layout/MainHeader';
 import { Header } from '../Layout/Header';
 import { ProductForm } from '../Product/ProductForm';
 import { ArrowLeft, Download, ChevronUp, ChevronDown, Trash2, Power, PowerOff, Edit } from 'lucide-react';
@@ -397,6 +398,7 @@ export const AllProducts: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
+        <MainHeader />
         <Header />
         <main style={{ padding: '1.5rem' }}>
           <div style={{ maxWidth: '100%', margin: '0 auto' }}>
@@ -412,6 +414,7 @@ export const AllProducts: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   if (error) {
     return (
       <div className="min-h-screen bg-white">
+        <MainHeader />
         <Header />
         <main style={{ padding: '1.5rem' }}>
           <div style={{ maxWidth: '100%', margin: '0 auto' }}>
@@ -426,6 +429,7 @@ export const AllProducts: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-white">
+      <MainHeader />
       <Header />
       <main style={{ padding: '1.5rem' }}>
         <div style={{ maxWidth: '100%', margin: '0 auto' }}>

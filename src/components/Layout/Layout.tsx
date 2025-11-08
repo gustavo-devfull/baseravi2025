@@ -1,4 +1,5 @@
 import React from 'react';
+import { MainHeader } from './MainHeader';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 
@@ -36,6 +37,9 @@ export const Layout: React.FC<LayoutProps> = ({
 
   return (
     <div className="min-h-screen bg-white">
+      {/* MainHeader - Navegação entre sistemas */}
+      <MainHeader />
+      
       {/* Header */}
       <Header onNavigateToAllProducts={onNavigateToAllProducts} />
 
