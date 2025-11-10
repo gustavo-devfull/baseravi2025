@@ -3,6 +3,8 @@ import { MainHeader } from './MainHeader';
 import { Header } from './Header';
 import { SearchBar } from './SearchBar';
 
+import type { Product } from '../../types/Product';
+
 interface LayoutProps {
   children: React.ReactNode;
   onAddProduct: () => void;
@@ -17,6 +19,7 @@ interface LayoutProps {
     marca?: string;
   };
   onNavigateToAllProducts?: () => void;
+  products?: Product[];
 }
 
 export const Layout: React.FC<LayoutProps> = ({ 
@@ -28,10 +31,22 @@ export const Layout: React.FC<LayoutProps> = ({
   onImportSpreadsheet,
   hasActiveFilters = false,
   activeFilters = {},
-  onNavigateToAllProducts
+  onNavigateToAllProducts,
+  products = []
 }) => {
-  const handleExportSpreadsheet = () => {
-    console.log('Exportar planilha');
+  const handleExportSpreadsheet = async () => {
+    if (products.length === 0) {
+      alert('Não há produtos para exportar');
+      return;
+    }
+
+    try {
+      const { ExcelExportService } = await import('../../services/excelExportService');
+      await ExcelExportService.exportProductsToExcel(products);
+    } catch (error) {
+      console.error('Erro ao exportar:', error);
+      alert('Erro ao exportar planilha. Verifique o console para mais detalhes.');
+    }
   };
 
 

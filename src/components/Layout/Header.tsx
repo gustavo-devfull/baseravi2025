@@ -6,6 +6,16 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onNavigateToAllProducts }) => {
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 768);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <header style={{ backgroundColor: '#0175a6', borderBottom: '1px solid #e5e7eb' }}>
       <div style={{ maxWidth: '1216px', margin: '0 auto', padding: '0 1.5rem' }}>
@@ -25,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ onNavigateToAllProducts }) => {
   fontSize: '16px'
 
 }}>
-  Base de Produtos
+  {isMobile ? 'Base' : 'Base de Produtos'}
 </span>
           </div>
 

@@ -246,6 +246,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onNavigateToAllProducts })
         hasActiveFilters={Object.values(filters).some(value => value !== undefined && value !== '')}
         activeFilters={filters}
         onNavigateToAllProducts={onNavigateToAllProducts}
+        products={products}
       >
         <div className="space-y-6">
         {/* Erro */}

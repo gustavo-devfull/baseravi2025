@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@types/xlsx": "^0.0.35",
+    "exceljs": "^4.4.0",
     "firebase": "^12.4.0",
     "lucide-react": "^0.545.0",
     "react": "^19.1.1",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@tailwindcss/postcss": "^4.1.14",
+    "@types/exceljs": "^0.5.3",
     "@types/node": "^24.7.1",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
